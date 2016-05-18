@@ -18,8 +18,8 @@ from django.shortcuts import render_to_response
 def views(request):
 	return render_to_response('2.html',{"name":"hello"})
 
-from myApp.models import *
-from myApp.forms import *
+from django_learn.models import *
+from django_learn.forms import *
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
