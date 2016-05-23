@@ -1,7 +1,6 @@
 #coding:utf-8
 
 import tornado.web
-import tornado.gen
 
 class BaseHandler(tornado.web.RequestHandler):
     @property
@@ -15,6 +14,11 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.db.query("select * from authors")
 
 class IndexHandler(BaseHandler):
+    def get(self):
+        greeting = self.get_argument('greeting', 'Hello')
+        self.write(greeting + ' tornado!')
+
+class LoginHandler(BaseHandler):
     def get(self):
         self.render('index.html')
 
