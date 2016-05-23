@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'polls',
     'learn',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (

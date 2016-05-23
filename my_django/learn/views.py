@@ -18,8 +18,8 @@ from django.shortcuts import render_to_response
 def views(request):
 	return render_to_response('2.html',{"name":"hello"})
 
-from learn.models import *
-from learn.forms import *
+from my_django.learn.models import *
+from my_django.learn.forms import *
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
@@ -51,7 +51,7 @@ def view1(request):
 	return render_to_response('1.html')
 def view2(request):
 	return render_to_response('2.html')
-def views(request):
+def views(func):
 	def view(request):
 		# do something
 		return func(request)
@@ -59,8 +59,8 @@ def views(request):
 
 
 # 3-2 序列化——第一个API，返回JSON数据
-from myApp.models import Book
-from myApp.serializers import BookSerializer
+from my_django.learn.models import Book
+from my_django.learn.serializers import BookSerializer
 
 # from django.http import StreamingHttpResponse
 # from rest_framework.renderers import JSONRenderer
