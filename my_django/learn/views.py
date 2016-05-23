@@ -1,6 +1,6 @@
 # coding=UTF-8
 
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.http import HttpResponse,Http404
 
 # Create your views here.
@@ -20,8 +20,8 @@ def views(request):
 
 from my_django.learn.models import *
 from my_django.learn.forms import *
-from django.http import HttpResponse
-from django.shortcuts import render_to_response
+# from django.http import HttpResponse
+# from django.shortcuts import render_to_response
 
 
 def mybook(request):
@@ -43,8 +43,8 @@ def mybook(request):
 #def view2(request):
 #	return render_to_response('2.html')
 
-def views(request,template_name):
-	return render_to_response(template_name)
+# def views(request,template_name):
+# 	return render_to_response(template_name)
 
 # 高级视图，法二
 def view1(request):
@@ -59,8 +59,8 @@ def views(func):
 
 
 # 3-2 序列化——第一个API，返回JSON数据
-from my_django.learn.models import Book
-from my_django.learn.serializers import BookSerializer
+# from my_django.learn.models import Book
+# from my_django.learn.serializers import BookSerializer
 
 # from django.http import StreamingHttpResponse
 # from rest_framework.renderers import JSONRenderer
@@ -78,27 +78,27 @@ from my_django.learn.serializers import BookSerializer
 # 		return JSONResponse(ser.data)
 
 # 3-3-1 基于类的视图
-from rest_framework import APIView
-from rest_framework import Response
-
-class BookList(APIView):
-	def get(self,request,format=None):
-		books = Book.objects.all()
-		ser = BookSerializer(books,many=True)
-		return Response(ser.data)
-
-	def post(self,request,format=None):
-		ser = BookSerializer(request.DATA)
-		if ser.is_valid():
-			ser.save()
-			return Response(ser.data)
-		return Response(ser.errors)
-
-class BookDetail(APIView):
-	def get(self,request,num,format=None):
-		books = Book.objects.all(id=num)
-		ser = BookSerializer(b)
-		return Response(ser.data)
+# from rest_framework import APIView
+# from rest_framework import Response
+#
+# class BookList(APIView):
+# 	def get(self,request,format=None):
+# 		books = Book.objects.all()
+# 		ser = BookSerializer(books,many=True)
+# 		return Response(ser.data)
+#
+# 	def post(self,request,format=None):
+# 		ser = BookSerializer(request.DATA)
+# 		if ser.is_valid():
+# 			ser.save()
+# 			return Response(ser.data)
+# 		return Response(ser.errors)
+#
+# class BookDetail(APIView):
+# 	def get(self,request,num,format=None):
+# 		books = Book.objects.all(id=num)
+# 		ser = BookSerializer(b)
+# 		return Response(ser.data)
 
 # # 3-3-2 通用视图
 # from rest_framework import generics
