@@ -10,16 +10,16 @@ def hello(request):
 def hello1(request,num):
 	try:
 		num = int(num)
+		return HttpResponse("This is " + str(num))
 	except ValueError:
 		raise Http404()
 
 from django.shortcuts import render_to_response
 
-def views(request):
-	return render_to_response('2.html',{"name":"hello"})
+# def views(request):
+# 	return render_to_response('2.html',{"name":"hello"})
 
-from my_django.learn.models import *
-from my_django.learn.forms import *
+from my_django.learn.forms import Mybook
 # from django.http import HttpResponse
 # from django.shortcuts import render_to_response
 
@@ -100,6 +100,7 @@ def views(func):
 # 		ser = BookSerializer(b)
 # 		return Response(ser.data)
 
+
 # # 3-3-2 通用视图
 # from rest_framework import generics
 
@@ -109,7 +110,9 @@ def views(func):
 
 
 # 2-5-1 django自带的小缓存
+from my_django.learn.models import Book
 from django.core.cache import cache
+
 def view(request):
 	if cache.get('book'):
 		b=cache.get('book')
@@ -117,6 +120,7 @@ def view(request):
 		b=Book.objects.all()
 		cache.set('book',b)
 	return render_to_response('1.html',{'book':b})
+
 
 # # 2-5-2 django可以缓存整个视图的方法
 # from django.decorators.cache import cache_page

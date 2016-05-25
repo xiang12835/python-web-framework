@@ -18,11 +18,18 @@ urlpatterns += patterns('',
 )
 
 # learn
-from my_django.learn.views import hello, hello1, views, mybook
+from my_django.learn.views import hello, hello1, mybook, view
 
 urlpatterns += patterns('',
-    url(r'^hello1', hello1),
-    url(r'^hello', hello),
-    url(r'^views$', views),
-    url(r'^mybook', mybook),
+    url(r'^hello$', hello),
+    url(r'^hello/(\d+)$', hello1),
+    url(r'^view$', view),
+    url(r'^mybook$', mybook),
+)
+
+from my_django.learn.views import views, view1, view2
+
+urlpatterns += patterns('',
+    url(r'^view1$', views(view1)),
+    url(r'^view2$', views(view2)),
 )
