@@ -33,3 +33,8 @@ urlpatterns += patterns('',
     url(r'^view1$', views(view1)),
     url(r'^view2$', views(view2)),
 )
+
+# calc
+urlpatterns += patterns('',
+    url(r'^add$', 'calc.views.add', name='add'),
+)
