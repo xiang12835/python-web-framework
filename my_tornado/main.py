@@ -8,9 +8,9 @@ from handlers import HANDLERS, TEMPLATE_PATH
 
 define("port", default=9000, help="run on the given port", type=int)
 define("mysql_host", default="127.0.0.1:3306", help="blog database host")
-define("mysql_database", default="tornadodb", help="blog database name")
+define("mysql_database", default="tornado_blog", help="blog database name")
 define("mysql_user", default="root", help="blog database user")
-define("mysql_password", default="yuxiang", help="blog database password")
+define("mysql_password", default="", help="blog database password")
 
 
 class Application(web.Application):
@@ -20,7 +20,7 @@ class Application(web.Application):
             template_path = TEMPLATE_PATH,
             xsrf_cookies=False,
             cookie_secret="11oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
-        )  
+        )
 
         web.Application.__init__(self, handlers, **settings)
 

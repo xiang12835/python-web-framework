@@ -24,13 +24,13 @@ class LoginHandler(BaseHandler):
 
 class PoemPageHandler(BaseHandler):
     def post(self):
-        noun1 = self.get_argument('noun1')
-        noun2 = self.get_argument('noun2')
+        name = self.get_argument('name')
+        email = self.get_argument('email')
         verb = self.get_argument('verb')
         noun3 = self.get_argument('noun3')
-        self.db.execute('INSERT INTO authors (email, name) VALUES(%s,%s)', noun1, noun2)
-        ret = self.db.get('SELECT * from authors WHERE email = %s', noun1)
-        self.render('poem.html', roads=noun1, wood=noun2, made=verb,
+        self.db.execute('INSERT INTO authors (name, email) VALUES(%s,%s)', name, email)
+        ret = self.db.get('SELECT * from authors WHERE email = %s', email)
+        self.render('poem.html', roads=name, wood=email, made=verb,
                 difference=noun3, id=ret["id"])
 
 class ShowHandler(BaseHandler):
@@ -39,4 +39,4 @@ class ShowHandler(BaseHandler):
         ret = self.get_one_poem(ids)
         if not ret:
             raise tornado.web.HTTPError(404)
-        self.render('show.html', title = ret['email'], update = ret['name'])    
+        self.render('show.html', title = ret['email'], update = ret['name'])
