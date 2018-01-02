@@ -1,4 +1,4 @@
-#-*-coding: utf-8-*-
+# -*-coding: utf-8-*-
 
 from tornado import httpserver, ioloop, web
 from tornado.options import define, options
@@ -17,7 +17,7 @@ class Application(web.Application):
     def __init__(self):
         handlers = HANDLERS
         settings = dict(
-            template_path = TEMPLATE_PATH,
+            template_path=TEMPLATE_PATH,
             xsrf_cookies=False,
             cookie_secret="11oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
         )
@@ -25,11 +25,12 @@ class Application(web.Application):
         web.Application.__init__(self, handlers, **settings)
 
         self.db = torndb.Connection(
-            host= options.mysql_host, database= options.mysql_database,
-            user= options.mysql_user, password= options.mysql_password)
+            host=options.mysql_host, database=options.mysql_database,
+            user=options.mysql_user, password=options.mysql_password)
+
 
 if __name__ == '__main__':
-	tornado.options.parse_command_line()
-	http_server = httpserver.HTTPServer(Application())
-	http_server.listen(options.port)
-	ioloop.IOLoop.instance().start()
+    tornado.options.parse_command_line()
+    http_server = httpserver.HTTPServer(Application())
+    http_server.listen(options.port)
+    ioloop.IOLoop.instance().start()
