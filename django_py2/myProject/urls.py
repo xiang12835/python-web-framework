@@ -18,7 +18,7 @@ urlpatterns += patterns('',
 )
 
 # learn
-from my_django.learn.views import hello, hello1, mybook, view
+from django_py2.learning.views import hello, hello1, mybook, view
 
 urlpatterns += patterns('',
     url(r'^hello$', hello),
@@ -27,7 +27,7 @@ urlpatterns += patterns('',
     url(r'^mybook$', mybook),
 )
 
-from my_django.learn.views import views, view1, view2
+from django_py2.learning.views import views, view1, view2
 
 urlpatterns += patterns('',
     url(r'^view1$', views(view1)),
