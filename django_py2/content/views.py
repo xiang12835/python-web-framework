@@ -19,7 +19,7 @@ from django.shortcuts import render_to_response
 # def views(request):
 # 	return render_to_response('2.html',{"name":"hello"})
 
-from django_py2.learning.forms import Mybook
+from django_py2.content.forms import Mybook
 # from django.http import HttpResponse
 # from django.shortcuts import render_to_response
 
@@ -110,7 +110,7 @@ def views(func):
 
 
 # 2-5-1 django自带的小缓存
-from django_py2.learning.models import Book
+from django_py2.content.models import Book
 from django.core.cache import cache
 
 def view(request):

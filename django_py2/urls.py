@@ -4,21 +4,20 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'myProject.views.home', name='home'),
+    # url(r'^$', 'content.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
     # url(r'^admin/', include(admin.site.urls)),
 )
 
-# hello
-from hello import hello_django
+# content
+from content.home import hello_django
 
 urlpatterns += patterns('',
     url(r'^$', hello_django),
 )
 
-# learn
-from django_py2.learning.views import hello, hello1, mybook, view
+from django_py2.content.views import hello, hello1, mybook, view
 
 urlpatterns += patterns('',
     url(r'^hello$', hello),
@@ -27,14 +26,10 @@ urlpatterns += patterns('',
     url(r'^mybook$', mybook),
 )
 
-from django_py2.learning.views import views, view1, view2
+from django_py2.content.views import views, view1, view2
 
 urlpatterns += patterns('',
     url(r'^view1$', views(view1)),
     url(r'^view2$', views(view2)),
 )
 
-# calc
-urlpatterns += patterns('',
-    url(r'^add$', 'calc.views.add', name='add'),
-)

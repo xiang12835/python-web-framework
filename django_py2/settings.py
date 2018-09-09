@@ -36,9 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'calc',
-    'polls',
-    'learning',
+    'content',
     'rest_framework',
 )
 
@@ -51,9 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'myProject.urls'
+ROOT_URLCONF = 'urls'
 
-WSGI_APPLICATION = 'myProject.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
