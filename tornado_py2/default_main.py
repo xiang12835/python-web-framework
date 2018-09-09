@@ -1,5 +1,18 @@
 # -*-coding: utf-8-*-
 
+import os, sys
+
+PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+sys.path.insert(0, os.path.join(PROJECT_ROOT, '..', 'base', "site-packages"))
+sys.path.insert(0, os.path.join(PROJECT_ROOT, os.pardir))
+
+
+from base.settings import load_django_settings
+from settings import load_tonardo_settings
+
+load_django_settings('python-web-framework.base', 'python-web-framework.django_py2', 'python-web-framework.tornado_py2')
+
+
 from tornado import httpserver, ioloop, web
 from tornado.options import define, options
 import torndb

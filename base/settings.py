@@ -26,10 +26,10 @@ def load_django_settings(*modules):
     mods = []
 
     for module in modules:
-        try:
+        # try:
             mods.append(importlib.import_module('%s.settings' % module))
-        except ImportError, err:
-            raise ImportError("Could not import settings '%s' (Is it on sys.path?): %s" % (module, err))
+        # except ImportError, err:
+        #     raise ImportError("Could not import settings '%s' (Is it on sys.path?): %s" % (module, err))
 
     for module in modules:
         try:
