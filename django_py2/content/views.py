@@ -5,7 +5,7 @@ from django.http import HttpResponse,Http404
 
 # Create your views here.
 def hello(request):
-	return HttpResponse("hello world") 
+	return HttpResponse("hello world!")
 
 def hello1(request,num):
 	try:
