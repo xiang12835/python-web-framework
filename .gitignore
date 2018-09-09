@@ -66,3 +66,4 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 /my_django/env2.7/
+/base/my_settings.py
