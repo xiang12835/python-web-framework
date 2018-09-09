@@ -10,7 +10,7 @@ sys.path.insert(1, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(
 
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "content_settings")
 
     from django.core.management import execute_from_command_line
 

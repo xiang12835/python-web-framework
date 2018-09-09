@@ -102,7 +102,7 @@ def load_settings(settings, debug=False, **kwargs):
         'DATABASES': {
             'default': {
                 'ENGINE': 'django.db.backends.mysql',
-                'NAME': 'my_db',  # Or path to database file if using sqlite3.
+                'NAME': 'django_db',  # Or path to database file if using sqlite3.
                 'USER': 'root',  # Not used with sqlite3.
                 'PASSWORD': '',  # Not used with sqlite3.
                 'HOST': 'localhost',  # Set to sempty string for localhost. Not used with sqlite3.
@@ -115,9 +115,9 @@ def load_settings(settings, debug=False, **kwargs):
             },
         },
 
-        'DATABASE_ROUTERS': ['app.db_router.MainRouter'],
-        'DATABASE_MAPPING': {"my_db": "my_db"},
-        'DATABASE_READ_MAPPING': {"my_db": "my_db"},
+        'DATABASE_ROUTERS': ['django_py2.db_router.MainRouter'],
+        'DATABASE_MAPPING': {"django_db": "django_db"},
+        'DATABASE_READ_MAPPING': {"django_db": "django_db"},
 
 
         #'DISABLE_TRANSACTION_MANAGEMENT' : True,
@@ -182,7 +182,7 @@ def load_settings(settings, debug=False, **kwargs):
             'django_admin_bootstrapped',
             'django.contrib.admin',
             'django.contrib.admindocs',
-            ],
+        ],
         'DATE_FORMAT': 'Y-m-d',
         'DATETIME_FORMAT': 'Y-m-d H:i',
         'TIME_FORMAT': 'H:i',
