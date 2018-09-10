@@ -102,7 +102,7 @@ def load_settings(settings, debug=False, **kwargs):
                 'django.contrib.admin',
                 'django.contrib.admindocs',
                 'app.content',
-                # 'app.user',
+                'app.user',
             ],
             "LOGIN_URL": "/signin",
             "LOGIN_REDIRECT_URL": "/",
