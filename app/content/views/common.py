@@ -4,17 +4,12 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from app.content_operation.models import *
 from django.contrib import messages
 from wi_model_util.imodel import get_object_or_none
 from django.core.exceptions import FieldError
 from django.db.models import Max
-from app.bskcommon.models import *
-from app.infomation.models import *
-from app.bskgk.models import *
 import json
-from wx.wx_content.utils import upload_file
-
+from app.content.utils.upload_util import upload_file
 
 MIMEANY = '*/*'
 MIMEJSON = 'application/json'
@@ -143,50 +138,3 @@ def common_update_status_int(request):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
-@login_required()
-def api_course_list(request):
-    key = request.GET.get('key')
-    course_infos = CourseInfo.objects.filter(course_name__contains=key, status="1", stage=2).order_by("-create_time")[:20]
-    course_info_list = []
-
-    for course in course_infos or []:
-        course_info_list.append(course.to_small_json())
-
-    response = HttpResponse(json.dumps(course_info_list), content_type='application/json')
-    response['Content-Disposition'] = 'inline; filename=files.json'
-    response["Access-Control-Allow-Origin"] = "*"
-
-    return response
-
-
-@login_required()
-def api_course_list_for_activity(request):
-    key = request.GET.get('key')
-
-    course_infos = CourseInfo.objects.filter(course_name__contains=key, status="1").filter(stage__in=[1, 2]).order_by("-create_time")[:20]
-    course_info_list = []
-
-    for course in course_infos or []:
-        course_info_list.append(course.to_small_json())
-
-    response = HttpResponse(json.dumps(course_info_list), content_type='application/json')
-    response['Content-Disposition'] = 'inline; filename=files.json'
-    response["Access-Control-Allow-Origin"] = "*"
-
-    return response
-
-
-@login_required()
-def api_course_list_for_given_course(request):
-    key = request.GET.get('key')
-    course_infos = CourseInfo.objects.filter(course_name__contains=key).order_by("-create_time")[:20]
-    course_info_list = []
-
-    for course in course_infos or []:
-        course_info_list.append(course.to_small_json_for_given_course())
-
-    response = HttpResponse(json.dumps(course_info_list), content_type='application/json')
-    response['Content-Disposition'] = 'inline; filename=files.json'
-    response["Access-Control-Allow-Origin"] = "*"
-
-    return response

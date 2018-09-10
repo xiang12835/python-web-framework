@@ -1,0 +1,123 @@
+{% extends "mybase.html" %}
+{% load bootstrap_toolkit %}
+{% load util_tags %}
+
+{% block link %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}toast_message/jquery.toastmessage.css">
+    <script type="text/javascript" charset="utf-8">
+        line_basic_b({{ categories|safe }},'{{ title|safe }}',{{ names|safe }},{{ datas|safe }},{{ value_suffixs|safe }},'{{ comprehensive_trend_container|safe }}',1);
+    </script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/content_list.css">
+{% endblock %}
+
+
+{% block content_statis_one %}
+    <div class="main-content" style="width: 100%">
+
+        <form method="get" id="save_position_form" action="" style="width: 100%;">
+            <input type="hidden" name='time_type' id='time_type' value="{{ time_type }}"/>
+            <div class="col-lg-6" style="width: 100%;margin-left: 0px;">
+                <div class="time col-lg-12" style="vertical-align: middle;">
+                    <span class="word-status pull-left">统计日期范围:</span>
+                    <div class="controls input-append date form_date col-lg-3" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <span class="add-on">从：</span>
+                        <span class="add-on"><i class="icon-th"></i></span>
+                        <input size="10" type="text" value="{{ date_from }}" readonly id='date_from' name="date_from" style="width: 100px;">
+                    </div>
+                    <div class="pull-left" style="display:inline; color: lightgrey; margin-left: -35px;margin-right: 0px;">>>></div>
+                    <div class="controls input-append date form_date col-lg-3" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <span class="add-on">到：</span>
+                        <span class="add-on"><i class="icon-th"></i></span>
+                        <input size="10" type="text" value="{{ date_to }}" readonly id='date_to' name="date_to">
+                    </div>
+                    <div class="controls filter col-lg-2">
+                        <button class="btn func-btn btn-info" onclick="submit_search('search')" type="button" style="margin-left: 5px; margin-bottom: 10px;" id="filter_btn"><i class="icon-search"></i><span class="space">查询</span></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="cut_off_d_line"><hr style="margin:0"/></div>
+        <div class="nav-content">
+            <div class="row-fluid" style="width: 100%">
+                <div id="{{ comprehensive_trend_container }}" style="min-width: 310px;width: 100%;height: auto; margin: 0"></div>
+            </div>
+            <table class="table table-striped table-hover table-bordered text-center" style="width: 100%;margin-left: auto;margin-right: auto;margin-bottom:30px;background-color: lightblue">
+                <caption class="caption" style='font-size: 16px;font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;background-color: #49afcd;height: 50px;color: white;'>详细情况汇总表</caption>
+                <thead>
+                    <th class="td-count text-center">日期</th>
+                    <th class="td-count text-center">每日uv</th>
+                    <th class="td-count text-center">每日vv</th>
+                    <th class="td-count text-center">m</th>
+                </thead>
+                <tbody id="sortable">
+                    {% if results %}
+                        {% for k,v in results.iteritems %}
+                            <tr class="sort-item">
+                                <td>{{ k }}</td>
+                                <td>{{ v.banner }}</td>
+                                <td>{{ v.rank }}</td>
+                                <td>{{ v.ad }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    {% if not results %}
+        <div class="row-fluid">
+            <div class="col-sm-8">
+                <div class="alert">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Warning!</strong> 您查询的数据为空，请重新设定查询条件。
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% include 'popup/popup.html' %}
+{% endblock %}
+
+
+{% block js %}
+    <script src="{{ STATIC_URL }}toast_message/jquery.toastmessage.js"></script>
+{#    <script type="text/javascript">#}
+{#    function submit_search(type){#}
+{#        if (type=='search'){#}
+{#            $("#save_position_form").action = "{% url 'search_by_ac' %}";#}
+{#            $("#save_position_form").submit();#}
+{#        }else{#}
+{#            $("#save_position_form").action = "{% url 'count_click' %}";#}
+{#            $("#save_position_form").submit();#}
+{#        }#}
+{#    }#}
+{#    $(document).ready(function () {#}
+{#        //make the nav buttons of handling videos be fixed on the top while scrolling#}
+{#        var nav_btns = $('#nav-buttons');#}
+{#        var fixmeTop = nav_btns.offset().top - $(".navbar-fixed-top").height();#}
+{#        $(window).scroll(function () {#}
+{#            var curTop = $(this).scrollTop();#}
+{#            if (curTop > fixmeTop) {#}
+{#                if ($("#storePos").length === 0) {#}
+{#                    var stick = $('<div id="storePos"><div>').css({'height': nav_btns.height(), 'width': nav_btns.width()});#}
+{#                    nav_btns.parent().prepend(stick)#}
+{#                }#}
+{#                nav_btns.css({width: nav_btns.width(), position: 'fixed', top: 41, 'background-color': '#fafafa',#}
+{#                    'box-shadow': '0 2px 8px -2px #888', 'padding-top': 5})#}
+{#                        .children(':first').css('margin-left', 5).end().children().eq(1).css('margin-right', 5);#}
+{#            } else {#}
+{#                $("#storePos").remove();#}
+{#                nav_btns.css({width: 'inherit', position: 'static', 'padding-top': 0, 'box-shadow': 'none'});#}
+{#            }#}
+{#        });#}
+{#    });#}
+{#    </script>#}
+{#    {% include "common_module/batch_handle_js.html" %}#}
+    <link href="{{ STATIC_URL }}bootstrap-editable-1.5.1/bootstrap-editable/css/bootstrap-editable.css"
+          rel="stylesheet"/>
+    <script src="{{ STATIC_URL }}bootstrap-editable-1.5.1/bootstrap-editable/js/bootstrap-editable.js"></script>
+
+{% endblock %}

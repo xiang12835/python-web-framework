@@ -7,10 +7,9 @@ from wi_model_util.imodel import get_object_or_none
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from app.bskgk.utils import redefine_item_pos
-from app.index.lib.short_id import ShortID
-from app.index.util.common import get_paged_dict
-from edu.user.models import User
+from app.content.utils import redefine_item_pos
+from app.content.utils import get_paged_dict
+from app.user.models import User
 
 
 @login_required

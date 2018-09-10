@@ -55,6 +55,7 @@ def load_settings(settings, debug=False, **kwargs):
             'TEMPLATE_DIRS': (
                 os.path.join(PROJECT_ROOT, "templates"),
                 os.path.join(PROJECT_ROOT, "content/templates"),
+                os.path.join(PROJECT_ROOT, "user/templates"),
                 os.path.join(PROJECT_ROOT, "statics/edit_demo/js/modules"),
                 os.path.join(BASE_DIR, "templates"),
             ),
@@ -74,7 +75,8 @@ def load_settings(settings, debug=False, **kwargs):
                 "django.core.context_processors.request",
                 'django.core.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
-                "django.contrib.auth.context_processors.auth",),
+                "django.contrib.auth.context_processors.auth",
+            ),
 
             'MIDDLEWARE_CLASSES': [
                 'django.middleware.common.CommonMiddleware',
@@ -87,7 +89,7 @@ def load_settings(settings, debug=False, **kwargs):
                 # 'app.middleware.user_path_middleware.UserPathMiddleware',
             ],
 
-            # 'AUTH_USER_MODEL': 'user.User',
+            'AUTH_USER_MODEL': 'user.User',
 
             'INSTALLED_APPS': [
                 'django.contrib.auth',
@@ -117,7 +119,6 @@ def load_settings(settings, debug=False, **kwargs):
             'SESSION_EXPIRE_AT_BROWSER_CLOSE': True,
             'SESSION_COOKIE_AGE': 24*60*60,
             'DEFAULT_APP_LOGO': "/static/img/xTransforms1.png",
-            'RESOURCE_STATIC': '/tmp/winlesson/orders/',
 
         }
     )

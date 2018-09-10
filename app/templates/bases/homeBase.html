@@ -1,0 +1,331 @@
+{% extends "ext_base.html" %}
+{% block link %}
+
+    <style type="text/css">
+    .container_editor {
+        padding: 20px;
+        border: 1px solid #e7e7eb;
+        background-color: #f4f5f9;
+        min-height: 350px;
+        width: 630px;
+    }
+
+    .form_row {
+        margin-bottom: 12px;
+        width: 100%;
+    }
+
+    .form_submit_layout {
+
+        margin-top: 30px;
+        margin-left: 40%;
+    }
+
+        /* body */
+    body {
+        line-height: 1.6 !important;
+        font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "\9ED1\4F53", Arial, sans-serif !important;
+        color: #222 !important;
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .frm_label {
+        display: block;
+        width: auto;
+        float: none;
+        margin-right: 0;
+        margin-bottom: 4px;
+    }
+
+    .div_margin {
+        margin-left: 16px;
+    }
+
+        /* input box */
+    .frm_input {
+        height: 23px !important;
+        margin: 0px 0 !important;
+    }
+
+    .frm_input, .frm_textarea {
+        padding: 0px !important;
+        box-shadow: 0 !important;
+        box-shadow: inset 0 0px 0px rgb(0, 0, 0) !important;
+        border: 0px !important;
+        width: 100%;
+        -webkit-box-shadow: 0 !important;
+        background-color: transparent !important;;
+        border: 0 !important;;
+        outline: 0 !important;;
+    }
+
+    .frm_input_box {
+        display: block;
+        width: auto;
+        height: auto;
+        min-height: 30px;
+        border-color: #e7e7eb;
+    }
+
+    .frm_input_box {
+        display: inline-block;
+        position: relative;
+        height: 30px;
+        line-height: 30px;
+        vertical-align: middle;
+        width: 100%;
+        font-size: 14px;
+        padding: 0 10px;
+        border: 1px solid #e7e7eb;
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        border-radius: 0;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        background-color: #fff;
+    }
+
+    .frm_input_box.counter_in {
+        padding-right: 70px;
+    }
+
+    .frm_input_box.counter_in .frm_counter {
+        right: 0;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .frm_input_box.with_counter .frm_counter {
+        width: 50px;
+        color: #8d8d8d;
+        font-size: 14px;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .frm_input_box.append .frm_input_append {
+        position: absolute;
+        top: 0;
+        right: .8em;
+    }
+
+    .edui-scale {
+        box-sizing: initial;
+    }
+
+    {#    #body_holder{padding-left: 0px; border-width: 0px; padding-top: 0px; height: 440px; width: 100%;margin-left: 16px;}#}
+    #body_holder {
+        padding-left: 0px;
+        border-width: 0px;
+        padding-top: 0px;
+        height: 440px;
+        width: 100%;
+    }
+
+    .js-container-box {
+        min-height: 700px;
+        border: 1px solid #d9dadc;
+    }
+
+    .container .col-side {
+        width: 17.5%;
+        max-width: 208px;
+        display: table-cell;
+        min-height: 1px;
+        vertical-align: top;
+        border-right: 1px solid #e7e7eb;
+    }
+
+    .col-main {
+        display: table-cell;
+        width: 2000px;
+        height: 700px;
+    }
+
+    .menu-box {
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+
+    .menu.no_extra {
+        border-top-width: 0;
+        margin-top: 0px;
+    }
+
+    .menu_title {
+		position: relative;
+		padding: 0 30px 0;
+		width: auto;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		word-wrap: normal;
+		line-height: 68px;
+		color: #8d8d8d;
+        border-bottom: 1px solid #06A7E1;
+	}
+
+    .menu {
+        padding-bottom: 6px;
+        border-top: 1px solid #e7e7eb;
+    }
+
+    .menu_item {
+        line-height: 34px;
+    }
+
+    .menu_item a {
+        display: block;
+        padding: 0 0 0 58px;
+        width: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        color: #222;
+        text-decoration: none;
+    }
+
+    .menu_item:hover {
+        background-color: #f4f5f9;
+    }
+
+    .icon-menu {
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+        display: inline-block;
+        margin-right: 10px;
+        margin-top: -0.2em;
+    }
+
+    .col-main #article_form {
+        width: 630px;
+        margin: 50px auto;
+    }
+
+    .btn {
+        border: solid 1px #e7e7eb;
+    }
+
+    .form_submit_layout .btn {
+        margin: 0 5px;
+    }
+
+    .selected {
+        background-color: #06a7e1;
+    }
+
+    .selected a {
+        color: #fff;
+    }
+
+    .selected:hover {
+        background-color: #06a7e1;
+    }
+
+    ul, ol {
+        padding-left: 0;
+        list-style-type: none;
+    }
+
+    .btn-primary {
+        background-color: #06a7e1;
+    }
+
+    .title-tab .tab-navs {
+        line-height: 40px;
+        box-shadow: none;
+        border-bottom: 1px solid #e7e7eb;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+
+    }
+
+    .tab-navs:after {
+        content: "\200B";
+        display: block;
+        height: 0;
+        clear: both;
+    }
+
+    .tab-nav {
+        float: left;
+        font-size: 14px;
+        list-style-type: none;
+    }
+
+    .title-tab .tab-nav a {
+        line-height: 40px;
+        display: block;
+        text-decoration: none;
+        color: #222;
+        outline: 0;
+        padding: 0 20px;
+        margin-bottom: -1px;
+    }
+
+    .title-tab .tab-nav.selected {
+        border-bottom: 3px solid #06a7e1;
+        background-color: #fff;
+    }
+
+    .title-tab .tab-nav.first a {
+        padding-left: 30px;
+    }
+
+    .title-bar {
+        padding: 10px 30px 0;
+    }
+
+    .title-bar .info {
+
+    }
+
+    .title-bar:after {
+        content: "\200B";
+        display: block;
+        height: 0;
+        clear: both;
+    }
+
+    .edui-dialog-video #eduiVideoPreview {
+        float: none;
+        margin: 0 auto;
+    }
+
+
+    </style>
+    {% block reset_css %}
+
+    {% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div id="left-nav" class="js-container-box">
+        <div class="col-side">
+            <dl class="menu no_extra">
+                <dt class="menu_title">
+                    <i class="icon-menu"
+                       style="background:url({{ STATIC_URL }}images/icon_menu_function.png) no-repeat;">
+                    </i>功能
+                </dt>
+
+                <dd id="module" class="menu_item selected"><a data-id="10005" href="{% url 'list_pages' %}?app_id={{ app_id }}">视频模块</a>
+                </dd>
+                <dd id="article" class="menu_item"><a data-id="10006" href="{% url 'list_articles' %}?app_id={{ app_id }}">图文信息</a>
+                </dd>
+
+
+            </dl>
+        </div>
+        <div class="col-main">
+            {% block main-content %}
+
+            {% endblock %}
+
+        </div>
+    </div>
+{% endblock %}

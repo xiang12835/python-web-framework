@@ -21,7 +21,7 @@ import random
 import urllib
 from PIL import Image
 import logging
-from app.api_util.qcloud.qcloud_file import QCloudFile
+# from app.api_util.qcloud.qcloud_file import QCloudFile
 
 
 def upload_file(memfile, url="http://123.206.180.82/file/upload/", data=None, _headers=None):

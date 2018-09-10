@@ -4,20 +4,15 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from app.bskgk.models import OrderInfo
-from app.index.models.application import Application
 from base.core.dateutils import *
 from django.contrib import messages
 import json
 from django.db import connections
 import datetime
-from app.index.lib.download_csv import UnicodeWriter,Echo, output_csv
 from django.views.generic import View
 from django.http.response import StreamingHttpResponse
-from app.user.libs.check_role import check_role_required
+from app.user.utils.check_role import check_role_required
 from app.user.models import User
-from app.bskcommon.models import VoucherEntity
-from app.bskgk.models import SellPush
 import logging
 
 

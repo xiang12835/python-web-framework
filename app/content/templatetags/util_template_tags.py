@@ -11,7 +11,6 @@ from decimal import Decimal
 from django import template
 import re
 from django.conf import settings
-from crm_system.crm.models import Customer, SaleApproval
 
 register = template.Library()
 
@@ -145,7 +144,7 @@ def ifin_list(value, alist):
 
     return False
 
-HOST = settings.GKAO_API_HOST
+# HOST = settings.GKAO_API_HOST
 
 SUBJECT_TK = "http://115.159.122.45"
 
@@ -156,44 +155,20 @@ def replace_image_url(mat):
     if mat:
         return 'src="%s"' % (HOST + "/" + mat.group(1))
 
+
 @register.filter
 def render_html_img(value):
     return re.sub(ur'src=[\"\'](.*?)[\"\']', replace_image_url, value)
-
 
 
 def replace_subject_image_url(mat):
     if mat:
         return 'src="%s"' % (SUBJECT_TK + "/" + mat.group(1))
 
+
 @register.filter
 def render_subject_img(value):
     return re.sub(ur'src=[\"\'](.*?)[\"\']', replace_subject_image_url, value)
-
-
-@register.filter
-def intention_ch(value):
-    return dict(Customer.IntentionChoices).get(int(value), "未知")
-
-
-@register.filter
-def consult_ch(value):
-    return dict(Customer.ConsultChoices).get(int(value), "未知")
-
-
-@register.filter
-def channel_ch(value):
-    return dict(Customer.ChannelChoices).get(int(value), "未知")
-
-
-@register.filter
-def education_ch(value):
-    return dict(Customer.EducationChoices).get(int(value), "未知")
-
-
-@register.filter
-def stage_ch(value):
-    return dict(Customer.StageChoices).get(int(value), "未知")
 
 
 @register.filter
@@ -204,9 +179,3 @@ def order_status_ch(value):
         2: "订单成功"
     }
     return status_dict.get(int(value), "未知")
-
-
-@register.filter
-def sale_status_ch(value):
-    return dict(SaleApproval.StatusChoices).get(int(value), "未知")
-
