@@ -1,0 +1,28 @@
+<html>
+<head>
+	<title>Yu Xiang</title>
+</head>
+<body>
+<h1>Y X</h1>
+<p>Hello {{name}}</p>
+
+<ul>
+	{% for item in itemList%}
+	<li>{{ item }}</li>
+    {% endfor %}
+</ul>
+
+{% if status %}
+<p>I like python</p>
+{% else %}
+<p>I like django</p>
+{% endif %}
+
+{% ifequal a b %}
+
+{% endifequal%}
+
+{{ name | upper }}
+{{ name | lower }}
+</body>
+</html>

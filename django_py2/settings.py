@@ -1,128 +1,84 @@
-# coding=utf-8
-import os, sys
-import random
+"""
+Django settings for app project.
 
-PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(PROJECT_ROOT, os.pardir))
-sys.path.insert(0, os.path.join(PROJECT_ROOT, "site-packages"))
-sys.path.insert(0, os.path.join(PROJECT_ROOT, "..", ".."))
+For more information on this file, see
+https://docs.djangoproject.com/en/1.6/topics/settings/
 
-# from menu import FRESH_MENU
-BASE_DIR = os.path.join(PROJECT_ROOT, '..', 'base', "site-packages", "django_admin_bootstrapped")
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.6/ref/settings/
+"""
 
-
-def load_settings(settings, debug=False, **kwargs):
-    ugettext = lambda s: s
-    settings.update(
-        {
-            'TEMPLATE_LOADERS': (
-                (
-                    # 'django.template.loaders.cached.Loader',
-                    # (
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    # )
-                ),
-            ),
-
-            'DEBUG': debug,
-            'TEMPLATE_DEBUG': debug,
-            'TEST': False,
-            'DATABASE_ROUTERS': ['django_py2.db_router.MainRouter'],
-            'DATABASE_MAPPING': {"django_db": "django_db"},
-            'DATABASE_READ_MAPPING': {"django_db": "django_db"},
-
-            'DATABASES': {
-                'default': {
-                    'ENGINE': 'django.db.backends.mysql',
-                    'NAME': 'django_db',  # Or path to database file if using sqlite3.
-                    'USER': 'root',  # Not used with sqlite3.
-                    'PASSWORD': '',  # Not used with sqlite3.
-                    'HOST': 'localhost',  # Set to sempty string for localhost. Not used with sqlite3.
-                    'PORT': '3306',  # Set to empty string for default. Not used with sqlite3.
-                    'CHARSET': 'utf8',
-                    'OPTIONS': {
-                        # 'init_command': 'SET storage_engine=INNODB; SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;set autocommit=1;',
-                        # 'charset':'utf8mb4',
-                    },
-                },
-            },
-
-            'APK_UPLOAD_PATH': "/tmp/data/download",
-            'PROJECT_ROOT': PROJECT_ROOT,
-            'ANONYMOUS_USER_ID': -1,
-
-            'TEMPLATE_DIRS': (
-                os.path.join(PROJECT_ROOT, "templates"),
-                os.path.join(PROJECT_ROOT, "content/templates"),
-                os.path.join(PROJECT_ROOT, "statics/edit_demo/js/modules"),
-                os.path.join(BASE_DIR, "templates"),
-            ),
-            'ROOT_URLCONF': 'django_py2.urls',
-            'STATICFILES_FINDERS': [
-                'django.contrib.staticfiles.finders.FileSystemFinder',
-                'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-            ],
-            'STATICFILES_DIRS': (
-                os.path.join(PROJECT_ROOT, 'statics'),
-            ),
-            # "STATIC_ROOT": os.path.join(PROJECT_ROOT, 'statics'),
-            'TEMPLATE_CONTEXT_PROCESSORS': (
-                "django.core.context_processors.debug",
-                "django.core.context_processors.i18n",
-                "django.core.context_processors.media",
-                "django.core.context_processors.request",
-                'django.core.context_processors.static',
-                'django.contrib.messages.context_processors.messages',
-                "django.contrib.auth.context_processors.auth",),
-
-            'MIDDLEWARE_CLASSES': [
-                'django.middleware.common.CommonMiddleware',
-                'django.contrib.sessions.middleware.SessionMiddleware',
-                'django.contrib.auth.middleware.AuthenticationMiddleware',
-                # 'app.permission.middleware.PermMiddleware',
-                'django.contrib.messages.middleware.MessageMiddleware',
-                'django.middleware.transaction.TransactionMiddleware',
-                # 'app.middleware.profile_middleware.ProfileMiddleware',
-                # 'app.middleware.user_path_middleware.UserPathMiddleware',
-            ],
-
-            # 'AUTH_USER_MODEL': 'user.User',
-
-            'INSTALLED_APPS': [
-                'django.contrib.auth',
-                'django.contrib.contenttypes',
-                'django.contrib.sessions',
-                # 'django.contrib.sites',
-                'django.contrib.messages',
-                'django.contrib.staticfiles',
-                'django_admin_bootstrapped',
-                'django.contrib.admin',
-                'django.contrib.admindocs',
-                'django.contrib.admin',
-                'django.contrib.admindocs',
-                'django_py2.content',
-                # 'django_py2.user',
-            ],
-            "LOGIN_URL": "/signin",
-            "LOGIN_REDIRECT_URL": "/",
-            "MENU_CONFIG": [],
-            "NEW_MENU_CONFIG": [],
-            # "FRESH_MENU_CONFIG": FRESH_MENU,
-            "FUNC_INIT_DOWNLOAD_AMOUNT": lambda: random.randint(5000, 9999),
-            "ALWAYS_ALLOWED_PERMS": ("signout/$", "signin/$"),
-            'COUNT_KEY': 'down:count:key',
-            'memcache_code': ["127.0.0.1:11211"],
-            'redis_count': {'host': '127.0.0.1', 'port': 6379, 'db': 0},
-            'SESSION_EXPIRE_AT_BROWSER_CLOSE': True,
-            'SESSION_COOKIE_AGE': 24*60*60,
-            'DEFAULT_APP_LOGO': "/static/img/xTransforms1.png",
-            'RESOURCE_STATIC': '/tmp/winlesson/orders/',
-
-        }
-    )
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-def check_settings(settings):
-    pass
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'xeu+zc4zasyvrx@t0*2(x2e*9vjo6m2bp86d@4)zfuepy@^9ca'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+TEMPLATE_DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+# Application definition
+
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'content',
+    'rest_framework',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+ROOT_URLCONF = 'urls'
+
+WSGI_APPLICATION = 'wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.6/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+STATIC_URL = '/static/'
