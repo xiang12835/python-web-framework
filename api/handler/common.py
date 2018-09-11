@@ -1,8 +1,8 @@
 #coding=utf-8
 
-from tornado_py2.document.doc_tools import *
-from tornado_py2.util.public import hit_config
-from tornado_py2.view.base import BaseHandler
+from api.document.doc_tools import *
+from api.util.public import hit_config
+from api.view.base import BaseHandler
 # from app.index.lib.util import DateUtil
 # from app.index.models import Platform, Device, Switch
 from django.conf import settings

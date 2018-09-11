@@ -1,11 +1,11 @@
 #coding=utf-8
 
 INSTALL_HANDLERS = [
-    "tornado_py2.handler.common",
+    "api.handler.common",
 ]
 
 INSTALL_HANDLERS_NAME = {
-    "tornado_py2.handler.common": "通用接口",
+    "api.handler.common": "通用接口",
 }
 
 

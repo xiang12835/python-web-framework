@@ -14,7 +14,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.abspath(__file__), '../../.
 import re
 import hashlib
 import functools
-from tornado_py2.util import render
+from api.util import render
 from django.conf import settings
 from tornado.web import RequestHandler
 from wi_cache import PyPoolMemcache ,PyPoolUserMemcache , get_plus_json

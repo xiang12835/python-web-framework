@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
 from functools import wraps
-from tornado_py2.document.doc_globe import api_manager
-from tornado_py2.document.doc_base import *
-from tornado_py2.view.base import CachedHandler, CachedPlusHandler
+from api.document.doc_globe import api_manager
+from api.document.doc_base import *
+from api.view.base import CachedHandler, CachedPlusHandler
 import importlib
 
 def api_define(name, uri, params=[], result=None, filters=[], description='', add_user=False, api_type=1, wiki='', protocal="http",return_desc=""):
@@ -41,7 +41,7 @@ def handler_define(cls):
                 for f in api['filters']:
                     f(api)
 
-            from tornado_py2.document.doc_globe import api_manager
+            from api.document.doc_globe import api_manager
             global api_manager
             
             api_manager.addapi(api)
@@ -119,8 +119,8 @@ def profile_patch(execute):
 
 def load_api_doc(path, debug=False):
 
-    from tornado_py2.document import doc_view
-    from tornado_py2.document.doc_insall_handlers import INSTALL_HANDLERS
+    from api.document import doc_view
+    from api.document.doc_insall_handlers import INSTALL_HANDLERS
 
     for module in INSTALL_HANDLERS:
         importlib.import_module(module)

@@ -2,7 +2,7 @@
 import tornado.web
 import simplejson
 import tornado
-from tornado_py2.document.doc_globe import api_manager
+from api.document.doc_globe import api_manager
 
 from doc_insall_handlers import INSTALL_HANDLERS_NAME
 #
@@ -78,7 +78,7 @@ class ApiMapHandler(tornado.web.RequestHandler):
 
 class ApiLoggingDataHandler(tornado.web.RequestHandler):
     def get(self):
-        from tornado_py2.document.doc_tools import logging_data
+        from api.document.doc_tools import logging_data
 
         global logging_data
         data = logging_data[::-1]
