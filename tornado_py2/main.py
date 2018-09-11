@@ -6,12 +6,9 @@ import sys
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, '..', 'base', "site-packages"))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, os.pardir))
-sys.path.insert(0, os.path.join(PROJECT_ROOT, os.pardir, os.pardir))
 
 
 from base.settings import load_django_settings
-from settings import load_tonardo_settings
-
 load_django_settings('python-web-framework.base')
 
 
@@ -20,6 +17,7 @@ from tornado.options import define, options
 import torndb
 import tornado.options
 from handlers import HANDLERS, TEMPLATE_PATH
+
 
 define("port", default=9000, help="run on the given port", type=int)
 define("mysql_host", default="127.0.0.1:3306", help="blog database host")
