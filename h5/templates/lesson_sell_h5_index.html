@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <title>2017年省考笔试系统精讲班开课啦！</title>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <style>
+    * {
+      margin:0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Helvetica,Tahoma,Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",SimSun,"宋体",Heiti,"黑体",sans-serif !important;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    body, body>*, img {
+      width: 100%;
+    }
+    .main {
+      background-color: #fff;
+      padding: 2.5rem 1.4rem 6.25rem;
+    }
+    footer.nav {
+      position: fixed;
+      bottom: 0;
+      display: flex;
+      background: #2BABFF;
+    }
+    footer.nav>div {
+      flex: auto;
+      height: 67px;
+      line-height: 67px;
+      text-align: center;
+      font-size: 24px;
+      color: #fff;
+
+    }
+    footer.nav>div:first-child {
+      border-right: 1px solid #1099f3;
+    }
+    footer.nav>div>* {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    .mask {
+      display: none;
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      background-color: rgba(0,0,0,.7);
+    }
+    .form {
+      display: none;
+      background-color: #fff;
+      border-radius: 5px;
+      width: 90%;
+      position: fixed;
+      top: 20%;
+      left: 5%;
+      text-align: center;
+      padding: 40px 30px;
+    }
+    .form h2 {
+      font-size: 1.7rem;
+      font-weight: normal;
+    }
+    .closeBtn {
+      background: url(/images/icon-tell-btn.png) no-repeat center / 3rem 3rem;
+      border-radius: 50%;
+      color: #15a6ff;
+      height: 3rem;
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      width: 3rem;
+      cursor: pointer;
+    }
+    .form hr {
+      margin: 22.5px 0;
+      color: #f1f1f1;
+    }
+    form>div {
+      text-align: center;
+      width: 100%;
+      display: -webkit-flex;
+      display: flex;
+      margin-bottom: 1rem;
+      flex-wrap: nowrap；
+    }
+    input {
+      -webkit-appearance: none;
+      min-width: 8rem;
+      height: 62px;
+      line-height: 62px;
+      border: 1px solid #f1f1f1;
+      outline: none;
+      padding: 0.5rem 1.5rem;
+      color: #999;
+      font-size: 1.2rem;
+      flex: 1 1 0;
+    }
+    #phone.wrong {
+      background: #ffdedd;
+      border-color: red;
+      color: #274857;
+    }
+    #getcode {
+      width: 120px;
+      height: 62px;
+      line-height: 62px;
+      padding-left: 40px;
+      border: none;
+      color: #15a6ff;
+      flex: none;
+    }
+    .form #submit {
+      height: 62px;
+      line-height: 62px;
+      background-color: #15a6ff;
+      color: #fff;
+      border-radius:5px;
+      border: none;
+      text-align: center;
+      font-size: 24px;
+      display: block;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="main">
+    <img src="/images/1481172105440601.jpeg">
+  </section>
+  <footer class="nav">
+    <div>
+      <span id="openForm">预约报名</span>
+    </div>
+    <div>
+      <a href="{{purchase_url}}" id="linkFormBtn" linkurl="">直接购买</a>
+    </div>
+  </footer>
+  <div class="mask"></div>
+  <div class="form">
+    <h2>请填写表单内容</h2>
+    <span class="closeBtn"></span>
+    <hr/>
+    <form>
+      <div>
+          <input type="text" id="phone" placeholder="报名电话">
+          <input type="hidden" id="activity_id" value="{{activity_id}}">
+          <input type="hidden" id="lesson_id" value="{{lesson_id}}">
+      </div>
+      <div>
+        <!--<input type="text" id="verify_code" placeholder="请输入验证码">-->
+        <!--<div id="getcode"><a href="">获取验证码</a></div>-->
+      </div>
+      <div id="submit">确定</div>
+    </form>
+  </div>
+</body>
+<script>
+  var mask=$(".mask");
+  var form=$(".form");
+  var closeBtn=$(".closeBtn");
+  var phone=$("#phone");
+  // 显示登录页
+  $("#openForm").on("click",function(){
+    mask.css("display","block");
+    form.css("display","block");
+  });
+  // 点击遮罩隐藏登录页
+  mask.on("click",function(){
+    mask.css("display","none");
+    form.css("display","none");
+  });
+  // 关闭按钮
+  closeBtn.on("click",function(){
+    formClose();
+  });
+  // 手机号码验证
+  phone.on("blur",function(){
+    testPhone();
+  });
+  // 获取验证码
+  /*
+  $("#getcode").on("click",function(){
+    if(testPhone()){
+        uid = $("#phone").val();
+		if(!uid){
+			alert("请先输入您的手机号");
+		} else{
+			$.ajax({
+				url: "{{ reverse_url('get_verify_code') }}",
+				method: 'post',
+				data: {uid: uid},
+			});
+		}
+    }
+  });
+  */
+
+  $("#submit").click(function(){
+        username = $("#phone").val();
+        lesson_id = $("#lesson_id").val();
+        activity_id = $("#activity_id").val();
+		if(!username){
+			alert("请先输入您的手机号");
+		} else{
+			$.ajax({
+				url: "{{ reverse_url('order_lesson') }}",
+				method: 'post',
+				data: {
+				    username: username,
+				    lesson_id: lesson_id,
+				    activity_id: activity_id,
+				},
+				success: function(data){
+				    if(data["status"]=="ok"){
+				        alert(data["msg"]);
+				        formClose();
+				    } else {
+				        alert("请求失败，请重试！");
+				    }
+				}
+			});
+		}
+  });
+
+  // 手机号码验证函数
+  function testPhone(){
+    if(!phone.val().match(/^[1][358][0-9]{9}$/)){
+      phone.addClass("wrong").attr("placeholder","请输入有效的手机号哦~").val("");
+      return false;
+    }else{
+      phone.removeClass("wrong").attr("placeholder","报名电话");
+      return true;
+    }
+  }
+
+  function formClose(){
+    mask.css("display","none");
+    form.css("display","none");
+  }
+</script>
+</html>

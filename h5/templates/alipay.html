@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>必胜课-课程支付</title>
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/base.js"> </script>
+    <script src="/js/style.js"></script>
+    
+</head>
+<body>
+
+	<header class="pay_top">
+		<span>{{lesson_name}}</span>
+		<span>{{lesson_rmb}}元</span>
+	</header>
+	<div class="company_name clearfix">
+		<span>订单号</span>
+		<span>{{list_number}}</span>
+	</div>
+	<div class="company_name clearfix">
+		<span>收款方</span>
+		<span>必胜课教育科技</span>
+	</div>
+
+	<form {% if code %}action="/api/pay/lesson/purchase/" method="post"{% end %}>
+		<input type="hidden" name="code" value="{{code}}">
+		<input type="hidden" name="lesson_id" value="{{lesson_id}}">
+		<input type="hidden" name="list_number" value="{{list_number}}">
+		<input type="hidden" name="fee" value="{{lesson_rmb}}">
+		<input type="hidden" name="lesson_name" value="{{lesson_name}}">
+		<div class="pay_btn">
+			<span id="submit">立即支付</span>
+		</div>
+	</form>
+	
+	<footer class="qrcode clearfix">
+		<div>
+			<img src="/images/gwy.jpeg" alt="" />
+			<span>公务员考试网 微信号：gjgwyorg</span>
+		</div>
+	</footer>
+<script>
+
+	$(function(){
+		$("#submit").click(function(){
+			$("form").submit();
+		});
+	});
+</script>
+
+</body>
+</html>

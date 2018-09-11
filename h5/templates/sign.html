@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>必胜课-注册</title>
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+
+    <script src="/static/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/base.js"> </script>
+    
+    <script src="/js/style.js"></script>
+    
+</head>
+<body>
+	<div class="logo_box">
+		<img src="/images/logo.png" alt="" />
+	</div>
+	
+	<div class="login_box">
+		<div class="phone_num">
+			<img src="/images/user.png" alt="" />
+			
+			<input type="text" placeholder="请使用手机号码注册" id="phone_num"/>
+		</div>
+		
+		<div class="phone_num">
+			<img src="/images/mima.png" alt="" />
+			
+			<input type="password" placeholder="请输入密码" id="password"/>
+		</div>
+		
+		<div class="auth_code phone_num">
+			<img src="/images/phone.png" alt="" />
+			<input type="text" placeholder="请输入验证码" id="auth_code"/>
+			<span>获取验证码</span>
+		</div>
+
+		<div class="login_btn">
+			<div class="sign_in" id="sign">注册</div>
+		</div>
+		<input type="hidden" id="next" value="{{next}}">
+	</div>
+
+		
+	<!--<div class="err_msg">登录失败，账号或密码错误</div>-->
+<script>
+$(function(){
+	$(".auth_code span").click(function(){
+		uid = $("#phone_num").val();
+		if(!uid){
+			alert("请先输入您的手机号");
+		} else{
+			$.ajax({
+				url: '/api/pay/sign/get_verify_code',
+				method: 'post',
+				data: {uid: uid},
+			});
+		}
+	});
+
+	$("#sign").click(function(){
+		$.ajax({
+			url: '/api/pay/sign',
+			method: 'post',
+			data: {
+				phone_num: $("#phone_num").val(),
+				password: $("#password").val(),
+				verify_code: $("#auth_code").val(),
+			},
+			dataType: 'JSON',
+			success: function(data){
+				if(data["msg"]=="ok"){
+					alert("注册成功，点击确认返回登录！");
+					var next = $("#next").val();
+					window.location.href="/api/pay/login?next="+next;
+				} else {
+					alert("注册失败！" + data["msg"]);
+				}
+			},
+			error: function(){
+				alert("注册失败!")
+			}
+		});
+	});
+
+})
+</script>
+
+</body>
+</html>

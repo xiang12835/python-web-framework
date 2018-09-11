@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>必胜公考-app下载</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta content="telephone=no" name="format-detection">
+
+
+    <style type="text/css">
+/*初始化css*/
+		* {margin:0;padding:0;}  
+		.fl{float:left;}
+		.fr{float:right;}
+		a{text-decoration: none}
+		ul li{list-style-type:none;}
+
+		.clearfix::after{display:block;clear:both;content:"";visibility: hidden;height:0;}
+
+		/*body,html{overflow-x:hidden;}   */
+		* {-webkit-tap-highlight-color: transparent;-webkit-touch-callout: none;-webkit-user-select: none;}  /*清除手机tap事件高亮*/
+		input,textarea {border: 0;-webkit-appearance: none;}
+		
+	/*html, body {
+        position: relative;
+        height: 100%;
+    }*/
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+        margin-top:0.1rem;
+    }
+    .swiper-slide {
+        font-size: 18px;
+        background: #fff;
+        width: 85%;
+    }
+    
+    .swiper-slide:nth-child(n) {
+        width: 55%;
+    }
+    .swiper-slide:first-child {
+        width: 55%;
+    }
+
+
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="http://img.winlesson.com/css/swiper.min.css">
+
+    <link rel="stylesheet" type="text/css" href="http://img.winlesson.com/css/index.css">
+
+    <script type="text/javascript" src="http://img.winlesson.com/js/jq.js"></script>
+    <script type="text/javascript" src="http://img.winlesson.com/js/swiper.min.js"></script>
+    <script type="text/javascript">
+	// 1rem = 100px
+		document.documentElement.style.fontSize = $(document.documentElement).width()/3.75 + 'px';
+		$(window).on('resize', function() {
+		document.documentElement.style.fontSize = $(document.documentElement).width()/3.75 + 'px';
+		});
+
+
+    </script>
+</head>
+<body>
+
+<div class="con">
+
+    <!-- <div style="position:fixed;top:0;left:0;z-index:20000000"> -->
+
+
+    <div class="h_top">
+        <img src="http://img.winlesson.com/img/logo_box.png" class="logo_box">
+        <img src="http://img.winlesson.com/img/logo.png" class="logo">
+    </div>
+
+
+    <div class="app_intro ">
+        <p class="app_box clearfix">
+            <span class="app_name fl">{%if platform == 2%}必胜公考{% else %}必胜课{% end %}</span>
+            <span class="updataing_msg">正在安装请按home键返回桌面查看</span>
+            <span class="app_install fr">立即安装</span>
+        </p>
+
+        <ul class="h_intro clearfix">
+            <li>
+                <p>版本</p>
+                <p>V{{version}}</p>
+            </li>
+
+            <li>
+                <p>大小</p>
+                <p>{{packageSize}}M</p>
+            </li>
+
+            <li>
+                <p>更新于</p>
+                <p>{{createTime}}</p>
+            </li>
+        </ul>
+    </div>
+    <!-- </div> -->
+
+    <!-- <div style="padding-top:2.8rem;"></div> -->
+
+    <div class="install_way">        <!--  style="height:6rem;overflow－y: auto;"	  超出滚动test	 -->
+        <p class="i_way">安装方法</p>
+
+        <div style="height:3.38rem;" class="swiper-container">
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <!--  -->
+                    <video poster="http://img.winlesson.com/img/1.jpg" width="192px">
+                        <source src="http://img.winlesson.com/img/1493964534.mp4" type="video/mp4"/>
+                    </video>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="http://img.winlesson.com/img/2.jpg">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="http://img.winlesson.com/img/3.jpg">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="http://img.winlesson.com/img/4.jpg">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="http://img.winlesson.com/img/5.jpg">
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="f_app_intro">
+                <p class="f__intro_title">应用介绍</p>
+                {% if platform == 2 %}
+                <p class="f_intro_text">
+                    必胜公考是必胜课旗下，针对广大在校学生提供的公务员、事业单位考前辅导产品，核心功能包括题库、直播、点播、答疑等功能，我们拥有国内最权威的公考教育团队，拥有丰富的互联网产品、技术、运营经验，意在通过不断的创新打造国内最大的公考在线辅导产品，为广大考生提供更加优质的考前学习内容。</p>
+                {% end %}
+            </div>
+
+
+            <div class="updata_explain">
+                <p class="f__intro_title">更新介绍</p>
+                <p class="f_intro_text">
+                    更新内容：<br>
+                    {% raw updateContent %}
+                    <br><br>
+                    <b>安装注意事项</b>
+                    <br>
+                    1.安装前请删除旧版本
+                    <br>
+                    2.安装后需要信任证书，具体过程见应用截图，或者网页上的“iOS9及以上运行企业版注意事项”
+                </p>
+            </div>
+
+        </footer>
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+		$(function(){
+			var swiper = new Swiper('.swiper-container', {
+		        pagination: '.swiper-pagination',
+		        // height: '338px',
+        		slidesPerView: 'auto', // 展示的数量 
+		        spaceBetween:0
+		        // pagination: '.swiper-pagination',
+		    });
+
+			var m = 0;
+		   $(document).scroll(function(){
+		   		var scroll_top = $(document).scrollTop();
+
+		   		if( scroll_top >  166){
+
+		   			$('.h_top').remove();
+		   			$('.install_way').css({
+		   				'padding-top':'130px'
+		   			});
+
+		   			$('.app_intro ').css({
+		   				'position':'fixed',
+		   				'top':'0',
+		   				'z-index':1000
+		   			});
+
+		   			if(m == 0) {
+
+			   			$(document).scrollTop(0);
+			   		}
+		   			m++;
+		   			
+		   		};
+		   });
+
+
+			function isWeiXin(){ 
+				var ua = window.navigator.userAgent.toLowerCase(); 
+				if(ua.match(/MicroMessenger/i) == 'micromessenger'){ 
+					return true; 
+				}else{ 
+					return false;
+				}
+			}
+
+			function is_ios(){
+				var u = navigator.userAgent;
+				var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				return isiOS;			//true 则为iOS端
+			}
+
+
+		   $('.app_install').click(function(){
+		   		 var install_url="{{downloadUrl}}" ; //此处为下载app的链接
+		   		if(isWeiXin()){
+					alert('请点击微信右上角按钮,然后在弹出的菜单中,点击在safari中打开,即可安装;');
+					window.location.href=install_url;
+				}else{
+					$(this).hide();
+		   			$('.updataing_msg').show();
+		   			window.location.href=install_url;
+				}
+		   		
+
+		   });
+
+		});
+
+
+		
+
+
+</script>
+</body>
+</html>	

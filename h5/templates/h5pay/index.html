@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>H5支付页</title>
+  <script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript">
+    /*
+     * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
+     * Digest Algorithm, as defined in RFC 1321.
+     * Version 2.1 Copyright (C) Paul Johnston 1999 - 2002.
+     * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
+     * Distributed under the BSD License
+     * See http://pajhome.org.uk/crypt/md5 for more info.
+     */
+
+    /*
+     * Configurable variables. You may need to tweak these to be compatible with
+     * the server-side, but the defaults work in most cases.
+     */
+    var hexcase = 0; /* hex output format. 0 - lowercase; 1 - uppercase        */
+    var b64pad = ""; /* base-64 pad character. "=" for strict RFC compliance   */
+    var chrsz = 8; /* bits per input character. 8 - ASCII; 16 - Unicode      */
+
+    /*
+     * These are the functions you'll usually want to call
+     * They take string arguments and return either hex or base-64 encoded strings
+     */
+    function hex_md5(s)
+    {
+      return binl2hex(core_md5(str2binl(s), s.length * chrsz));
+    }
+
+    function b64_md5(s)
+    {
+      return binl2b64(core_md5(str2binl(s), s.length * chrsz));
+    }
+
+    function str_md5(s)
+    {
+      return binl2str(core_md5(str2binl(s), s.length * chrsz));
+    }
+
+    function hex_hmac_md5(key, data)
+    {
+      return binl2hex(core_hmac_md5(key, data));
+    }
+
+    function b64_hmac_md5(key, data)
+    {
+      return binl2b64(core_hmac_md5(key, data));
+    }
+
+    function str_hmac_md5(key, data)
+    {
+      return binl2str(core_hmac_md5(key, data));
+    }
+
+    /*
+     * Perform a simple self-test to see if the VM is working
+     */
+    function md5_vm_test()
+    {
+      return hex_md5("abc") == "900150983cd24fb0d6963f7d28e17f72";
+    }
+
+    /*
+     * Calculate the MD5 of an array of little-endian words, and a bit length
+     */
+    function core_md5(x, len)
+    {
+      /* append padding */
+      x[len >> 5] |= 0x80 << ((len) % 32);
+      x[(((len + 64) >>> 9) << 4) + 14] = len;
+
+      var a = 1732584193;
+      var b = -271733879;
+      var c = -1732584194;
+      var d = 271733878;
+
+      for (var i = 0; i < x.length; i += 16)
+      {
+        var olda = a;
+        var oldb = b;
+        var oldc = c;
+        var oldd = d;
+
+        a = md5_ff(a, b, c, d, x[i + 0], 7, -680876936);
+        d = md5_ff(d, a, b, c, x[i + 1], 12, -389564586);
+        c = md5_ff(c, d, a, b, x[i + 2], 17, 606105819);
+        b = md5_ff(b, c, d, a, x[i + 3], 22, -1044525330);
+        a = md5_ff(a, b, c, d, x[i + 4], 7, -176418897);
+        d = md5_ff(d, a, b, c, x[i + 5], 12, 1200080426);
+        c = md5_ff(c, d, a, b, x[i + 6], 17, -1473231341);
+        b = md5_ff(b, c, d, a, x[i + 7], 22, -45705983);
+        a = md5_ff(a, b, c, d, x[i + 8], 7, 1770035416);
+        d = md5_ff(d, a, b, c, x[i + 9], 12, -1958414417);
+        c = md5_ff(c, d, a, b, x[i + 10], 17, -42063);
+        b = md5_ff(b, c, d, a, x[i + 11], 22, -1990404162);
+        a = md5_ff(a, b, c, d, x[i + 12], 7, 1804603682);
+        d = md5_ff(d, a, b, c, x[i + 13], 12, -40341101);
+        c = md5_ff(c, d, a, b, x[i + 14], 17, -1502002290);
+        b = md5_ff(b, c, d, a, x[i + 15], 22, 1236535329);
+
+        a = md5_gg(a, b, c, d, x[i + 1], 5, -165796510);
+        d = md5_gg(d, a, b, c, x[i + 6], 9, -1069501632);
+        c = md5_gg(c, d, a, b, x[i + 11], 14, 643717713);
+        b = md5_gg(b, c, d, a, x[i + 0], 20, -373897302);
+        a = md5_gg(a, b, c, d, x[i + 5], 5, -701558691);
+        d = md5_gg(d, a, b, c, x[i + 10], 9, 38016083);
+        c = md5_gg(c, d, a, b, x[i + 15], 14, -660478335);
+        b = md5_gg(b, c, d, a, x[i + 4], 20, -405537848);
+        a = md5_gg(a, b, c, d, x[i + 9], 5, 568446438);
+        d = md5_gg(d, a, b, c, x[i + 14], 9, -1019803690);
+        c = md5_gg(c, d, a, b, x[i + 3], 14, -187363961);
+        b = md5_gg(b, c, d, a, x[i + 8], 20, 1163531501);
+        a = md5_gg(a, b, c, d, x[i + 13], 5, -1444681467);
+        d = md5_gg(d, a, b, c, x[i + 2], 9, -51403784);
+        c = md5_gg(c, d, a, b, x[i + 7], 14, 1735328473);
+        b = md5_gg(b, c, d, a, x[i + 12], 20, -1926607734);
+
+        a = md5_hh(a, b, c, d, x[i + 5], 4, -378558);
+        d = md5_hh(d, a, b, c, x[i + 8], 11, -2022574463);
+        c = md5_hh(c, d, a, b, x[i + 11], 16, 1839030562);
+        b = md5_hh(b, c, d, a, x[i + 14], 23, -35309556);
+        a = md5_hh(a, b, c, d, x[i + 1], 4, -1530992060);
+        d = md5_hh(d, a, b, c, x[i + 4], 11, 1272893353);
+        c = md5_hh(c, d, a, b, x[i + 7], 16, -155497632);
+        b = md5_hh(b, c, d, a, x[i + 10], 23, -1094730640);
+        a = md5_hh(a, b, c, d, x[i + 13], 4, 681279174);
+        d = md5_hh(d, a, b, c, x[i + 0], 11, -358537222);
+        c = md5_hh(c, d, a, b, x[i + 3], 16, -722521979);
+        b = md5_hh(b, c, d, a, x[i + 6], 23, 76029189);
+        a = md5_hh(a, b, c, d, x[i + 9], 4, -640364487);
+        d = md5_hh(d, a, b, c, x[i + 12], 11, -421815835);
+        c = md5_hh(c, d, a, b, x[i + 15], 16, 530742520);
+        b = md5_hh(b, c, d, a, x[i + 2], 23, -995338651);
+
+        a = md5_ii(a, b, c, d, x[i + 0], 6, -198630844);
+        d = md5_ii(d, a, b, c, x[i + 7], 10, 1126891415);
+        c = md5_ii(c, d, a, b, x[i + 14], 15, -1416354905);
+        b = md5_ii(b, c, d, a, x[i + 5], 21, -57434055);
+        a = md5_ii(a, b, c, d, x[i + 12], 6, 1700485571);
+        d = md5_ii(d, a, b, c, x[i + 3], 10, -1894986606);
+        c = md5_ii(c, d, a, b, x[i + 10], 15, -1051523);
+        b = md5_ii(b, c, d, a, x[i + 1], 21, -2054922799);
+        a = md5_ii(a, b, c, d, x[i + 8], 6, 1873313359);
+        d = md5_ii(d, a, b, c, x[i + 15], 10, -30611744);
+        c = md5_ii(c, d, a, b, x[i + 6], 15, -1560198380);
+        b = md5_ii(b, c, d, a, x[i + 13], 21, 1309151649);
+        a = md5_ii(a, b, c, d, x[i + 4], 6, -145523070);
+        d = md5_ii(d, a, b, c, x[i + 11], 10, -1120210379);
+        c = md5_ii(c, d, a, b, x[i + 2], 15, 718787259);
+        b = md5_ii(b, c, d, a, x[i + 9], 21, -343485551);
+
+        a = safe_add(a, olda);
+        b = safe_add(b, oldb);
+        c = safe_add(c, oldc);
+        d = safe_add(d, oldd);
+      }
+      return Array(a, b, c, d);
+
+    }
+
+    /*
+     * These functions implement the four basic operations the algorithm uses.
+     */
+    function md5_cmn(q, a, b, x, s, t)
+    {
+      return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b);
+    }
+
+    function md5_ff(a, b, c, d, x, s, t)
+    {
+      return md5_cmn((b & c) | ((~b) & d), a, b, x, s, t);
+    }
+
+    function md5_gg(a, b, c, d, x, s, t)
+    {
+      return md5_cmn((b & d) | (c & (~d)), a, b, x, s, t);
+    }
+
+    function md5_hh(a, b, c, d, x, s, t)
+    {
+      return md5_cmn(b ^ c ^ d, a, b, x, s, t);
+    }
+
+    function md5_ii(a, b, c, d, x, s, t)
+    {
+      return md5_cmn(c ^ (b | (~d)), a, b, x, s, t);
+    }
+
+    /*
+     * Calculate the HMAC-MD5, of a key and some data
+     */
+    function core_hmac_md5(key, data)
+    {
+      var bkey = str2binl(key);
+      if (bkey.length > 16) bkey = core_md5(bkey, key.length * chrsz);
+
+      var ipad = Array(16),
+        opad = Array(16);
+      for (var i = 0; i < 16; i++)
+      {
+        ipad[i] = bkey[i] ^ 0x36363636;
+        opad[i] = bkey[i] ^ 0x5C5C5C5C;
+      }
+
+      var hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);
+      return core_md5(opad.concat(hash), 512 + 128);
+    }
+
+    /*
+     * Add integers, wrapping at 2^32. This uses 16-bit operations internally
+     * to work around bugs in some JS interpreters.
+     */
+    function safe_add(x, y)
+    {
+      var lsw = (x & 0xFFFF) + (y & 0xFFFF);
+      var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+      return (msw << 16) | (lsw & 0xFFFF);
+    }
+
+    /*
+     * Bitwise rotate a 32-bit number to the left.
+     */
+    function bit_rol(num, cnt)
+    {
+      return (num << cnt) | (num >>> (32 - cnt));
+    }
+
+    /*
+     * Convert a string to an array of little-endian words
+     * If chrsz is ASCII, characters >255 have their hi-byte silently ignored.
+     */
+    function str2binl(str)
+    {
+      var bin = Array();
+      var mask = (1 << chrsz) - 1;
+      for (var i = 0; i < str.length * chrsz; i += chrsz)
+        bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << (i % 32);
+      return bin;
+    }
+
+    /*
+     * Convert an array of little-endian words to a string
+     */
+    function binl2str(bin)
+    {
+      var str = "";
+      var mask = (1 << chrsz) - 1;
+      for (var i = 0; i < bin.length * 32; i += chrsz)
+        str += String.fromCharCode((bin[i >> 5] >>> (i % 32)) & mask);
+      return str;
+    }
+
+    /*
+     * Convert an array of little-endian words to a hex string.
+     */
+    function binl2hex(binarray)
+    {
+      var hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
+      var str = "";
+      for (var i = 0; i < binarray.length * 4; i++)
+      {
+        str += hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) +
+          hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8)) & 0xF);
+      }
+      return str;
+    }
+
+    /*
+     * Convert an array of little-endian words to a base-64 string
+     */
+    function binl2b64(binarray)
+    {
+      var tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+      var str = "";
+      for (var i = 0; i < binarray.length * 4; i += 3)
+      {
+        var triplet = (((binarray[i >> 2] >> 8 * (i % 4)) & 0xFF) << 16) | (((binarray[i + 1 >> 2] >> 8 * ((i + 1) % 4)) & 0xFF) << 8) | ((binarray[i + 2 >> 2] >> 8 * ((i + 2) % 4)) & 0xFF);
+        for (var j = 0; j < 4; j++)
+        {
+          if (i * 8 + j * 6 > binarray.length * 32) str += b64pad;
+          else str += tab.charAt((triplet >> 6 * (3 - j)) & 0x3F);
+        }
+      }
+      return str;
+    }
+
+  </script>
+  <style type="text/css">
+    /*CSS Reset*/
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      position: relative;
+    }
+
+    body {
+      font-family: PingFangSC-Regular, Microsoft YaHei;
+      font-size: 14px;
+      line-height: 20px;
+      max-width: 800px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-weight: normal;
+      margin: 0;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    ol,
+    ul,
+    dl,
+    li,
+    dt,
+    dd {
+      list-style: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 17px;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      height: 40px;
+      line-height: 20px;
+      border: none;
+      font-size: 14px;
+      padding: 10px;
+    }
+
+    button {
+      height: 40px;
+      line-height: 40px;
+    }
+
+    hr {
+      background: #e5e5e5;
+      height: 1px;
+      border: none;
+      margin-bottom: 10px;
+    }
+
+    .fixed {
+      position: fixed;
+    }
+
+    .center {
+      text-align: center;
+      display: block;
+      margin: auto;
+    }
+
+    .center>* {
+      text-align: left;
+    }
+
+    .abcenter {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .mask {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, .5);
+    }
+
+    .white {
+      background-color: rgba(255, 255, 255, .5) !important;
+    }
+
+    .unable {
+      border-color: #e5e5e5 !important;
+      color: #ccc !important;
+    }
+
+    .fl {
+      float: left;
+    }
+
+    .fr {
+      float: right;
+    }
+
+    .cf.pfl>* {
+      float: left;
+    }
+
+    .cf.pfr>* {
+      float: right;
+    }
+
+    .cf:after {
+      content: ".";
+      display: block;
+      height: 0;
+      visibility: hidden;
+      clear: both;
+    }
+
+    .pointer {
+      cursor: pointer;
+    }
+
+    .small {
+      font-size: 12px;
+    }
+
+    .ta-r {
+      text-align: right;
+    }
+
+    .ol {
+      display: inline-block;
+    }
+
+    .p10 {
+      padding: 10px;
+    }
+
+    .p15 {
+      padding: 15px;
+    }
+
+    .pb10 {
+      padding-bottom: 10px;
+    }
+
+    .pb15 {
+      padding-bottom: 15px;
+    }
+
+    .mg5 {
+      margin: 5px;
+    }
+
+    .mb5 {
+      margin-bottom: 5px;
+    }
+
+    .mb10 {
+      margin-bottom: 10px;
+    }
+
+    .mb15 {
+      margin-bottom: 15px;
+    }
+
+    .mb20 {
+      margin-bottom: 20px;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      padding-top: 20px;
+      padding-right: 15px;
+      padding-left: 15px;
+      padding-bottom: 15px;
+      color: #333;
+    }
+
+    body.hasFixedBtn {
+      padding-bottom: 75px;
+    }
+
+    p.title {
+      line-height: 1.7em;
+    }
+
+    h5 {
+      margin-top: 20px;
+      font-family: PingFangSC-Medium, Microsoft YaHei;
+      font-weight: 500;
+      font-size: 12px;
+      color: #999;
+      font-weight: 600;
+      line-height: 2.4em;
+    }
+
+    .border {
+      padding: 10px;
+      border: 1px solid #E5E5E5;
+      position: relative;
+    }
+
+    .grey {
+      color: #999 !important;
+    }
+
+    .red {
+      color: #ff501b !important;
+    }
+
+    .orange {
+      color: #F8B62D;
+    }
+
+    .font-m {
+      font-family: PingFangSC-Medium, Microsoft YaHei;
+      font-weight: 500;
+    }
+
+    .font-b {
+      font-family: PingFangSC-Semibold, Microsoft YaHei;
+      font-weight: 600;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    .row>* {
+      flex: auto;
+    }
+    /*初始化*/
+
+    .mask {
+      display: block;
+    }
+
+    .slipper {
+      display: none;
+    }
+
+    #couponPage {
+      display: none;
+    }
+    /*收货地址*/
+
+    .rightCheck {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      right: 0;
+      top: 0;
+      background: #ffbc42 url(http://img.winlesson.com/img/whitecheck@2x.png) no-repeat 11px 5px/13px 13px;
+      border-radius: 0 0 0 100%;
+    }
+    /*新增地址*/
+
+    #userInfo {
+      display: none;
+    }
+
+    .slipper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding-bottom: 60px;
+      background: #fff;
+    }
+
+    .slipper input {
+      box-sizing: border-box;
+      background: #fff;
+    }
+    /*用户手机号*/
+
+    .alert h5 {
+      color: #ff501b;
+    }
+
+    .alert input {
+      border: 1px solid #ff501b;
+    }
+    /*确认按钮*/
+
+    .submit {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .submit-style {
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      background: #ffbc42;
+      box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.12);
+      text-align: center;
+      color: #fff;
+      text-shadow: 1px 1px 0 #ff9e4d;
+      font-family: PingFangSC-Semibold, Microsoft YaHei;
+      font-weight: 600;
+    }
+    /*代金券*/
+
+    .coupon .rightCheck {
+      display: none;
+    }
+
+    .coupon.checked .rightCheck {
+      display: block;
+    }
+
+    .coupon {
+      padding: 10px;
+      border: 1px solid #e5e5e5;
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .coupon .content {
+      border: 1px dashed #e5e5e5;
+      padding: 15px;
+    }
+
+    .coupon .content .money {
+      color: #ffbc42;
+      font-size: 36px;
+      line-height: 50px;
+    }
+
+    #couponsList p:first-child {
+      display: none;
+    }
+
+    #couponsList p:last-child {
+      display: block;
+    }
+
+    #couponsList.none p:first-child {
+      display: block !important;
+    }
+
+    #couponsList.none p:last-child {
+      display: none !important;
+    }
+
+  </style>
+</head>
+
+<body>
+  <section id="mainPage" class="hasFixedBtn">
+    <!-- 收货地址 -->
+    <!-- style="margin-bottom: 55px;" -->
+    <form id="userInfo">
+      <h5>收货人信息</h5>
+      <!--  class="userInfo": 收货人信息 -->
+      <!--  class="useraddress"：收货地址 -->
+      <div class="border">
+        <i class="rightCheck"></i>
+        <p id="nickName" class="title ol">{user.name}</p>
+        <p id="userName" class="userInfo grey pb15 small ol">{user.phone}</p>
+        <!--       <p class="useraddress title mb20">
+        <span class="userInfo">北京市</span>
+        <span class="userInfo">北京市</span>
+        <span class="userInfo">东高地红星北里快递驿站</span>
+      </p>
+      <div class="useraddress"><span class="grey" style="margin-right: 15px;">删除</span><span class="orange pointer" id="editAddressBtn">编辑</span></div> -->
+      </div>
+      <!-- <div id="addAddressBtn" class="useraddress grey fr font-m pointer" style="margin-top: 5px;">新增地址</div> -->
+    </form>
+    <!-- 商品信息 -->
+    <h5>商品信息</h5>
+    <div class="border p15">
+      <div>
+        <p id="mycourse_title" class="title"></p>
+        <p class="grey pb15 small"><span id="mycourse_orderId"></span></p>
+        <p class="pb15">金额：<span class="red">￥<span id="mycourse_price"></span></span>
+        </p>
+      </div>
+      <hr/>
+      <div class="pfr cf">
+        <p class="grey">优惠：￥<span>-0.00</span></p>
+        <br/>
+        <p class="grey">总计：<span class="red font-b">￥<span id="final_price"></span></span>
+        </p>
+      </div>
+    </div>
+    <!-- 代金券 -->
+    <h5>代金券</h5>
+    <div id="couponsList" class="border none">
+      <p>无可用代金券</p>
+      <p>已选择<span id="voucher_name" class="orange"></span></p>
+    </div>
+    <!-- 确认按钮 -->
+    <div id="test" class="submit submit-style fixed pointer">
+      确认支付
+    </div>
+    <!-- 蒙层 -->
+    <div class="mask"></div>
+    <!-- 用户登录 -->
+    <div class="slipper" style="display: block; width: 100%; padding-left: 15px; padding-right: 15px;">
+      <form name="user abcenter fixed" id="userform">
+        <div id="user">
+          <div>
+            <h5>手机号</h5>
+            <input id="userphone" class="border" type="text" name="phoneNum" placeholder="请输入手机号">
+          </div>
+          <div>
+            <h5>密码</h5>
+            <input id="userpassword" class="border mb10" type="password" name="password" placeholder="请输入密码">
+          </div>
+          <div id="login" class="submit submit-style">登录</div>
+        </div>
+      </form>
+    </div>
+    <!-- 新增地址 -->
+    <!-- <div id="userAddress" class="slipper">
+      <div class="row">
+        <input class="border mg5" type="" name="" placeholder="姓名">
+      </div>
+      <div class="row">
+        <input class="border mg5" type="" name="" placeholder="请输入手机号">
+      </div>
+      <div class="row">
+        <input class="border mg5" type="" name="" placeholder="省">
+        <input class="border mg5" type="" name="" placeholder="市">
+        <input class="border mg5" type="" name="" placeholder="地区">
+      </div>
+      <div class="row">
+        <input class="border mg5" type="" name="" placeholder="详细地址">
+      </div>
+      <div id="submitAddressBtn" class="submit submit-style pointer">
+        修改地址
+      </div>
+    </div>-->
+  </section>
+  <!-- 代金券 -->
+  <section id="couponPage">
+    <!-- 不选择代金券 -->
+    <div class="coupon" data-id="undefined">不选择代金券</div>
+    <!-- 可用代金券 -->
+    <h5>可用代金券</h5>
+    <ul id="userCouponsList">
+    </ul>
+  </section>
+</body>
+
+<script type="text/javascript">
+  // 基本数据：
+  // 测试：gotoUrl
+  var u = 'http://i2.winlesson.com',
+    // var u = 'http://test.winlesson.com',
+    urls = {
+      userLogin: u + '/api/user/login',
+      orderCreate: u + '/api/pay/order_id/create',
+      orderUpdate: u + '/api/pay/order/update',
+    },
+    //获取课程信息：
+    cur_user = {},
+    mycourse = {
+      'courseId': getQueryString('courseId'),
+    },
+    voucher = {};
+  //主要代码：
+  // 手机号规则验证：
+  $('#login').on('click', function()
+  {
+    var d = $(this).parents('.slipper');
+    // 合法性验证
+    if (!illegalUser())
+    {
+      return false;
+    }
+    // 发起登录请求
+    var ts = Math.round(new Date().getTime() / 1000);
+    var post_data = {
+      from: 'h5',
+      platform: 2,
+      timestamp: ts,
+      sign: getSign(ts),
+      username: $('#userphone').val(),
+      password: $('#userpassword').val(),
+    };
+    $.ajax(
+    {
+      url: urls.userLogin,
+      type: 'POST',
+      data: post_data,
+      dataType: 'JSON',
+      success: function(res)
+      {
+        if (res.code == '200')
+        {
+          showUserInfo(res.result.userInfo);
+          getCourseInfo();
+          // console.log(d);
+          d.animate(
+          {
+            'top': -d.height() - 60
+          }, 'slow', function()
+          {
+            d.hide();
+          });
+        }
+        else
+        {
+          alert(res.msg);
+        }
+      },
+    });
+  });
+
+  // 查看代金券
+  $('#couponsList').on('click', function()
+  {
+    if (!voucher.list || voucher.list.length == 0)
+    {
+      return false;
+    }
+    $('#mainPage').hide();
+    $('#couponPage').show();
+  });
+  // 确认按钮：
+  $('#test').on('click', function()
+  {
+    if (!cur_user || cur_user.length == 0)
+    {
+      return false;
+    }
+    if (!mycourse || mycourse.length == 0)
+    {
+      return false;
+    }
+
+    //确认订单
+    var ts = Math.round(new Date().getTime() / 1000);
+    var post_data = {
+      from: 'h5',
+      platform: 2,
+      timestamp: ts,
+      sign: getSign(ts),
+      userid: cur_user.userId,
+      username: cur_user.userName,
+      token: cur_user.token,
+      orderId: mycourse.orderId,
+      discountMethods: (parseInt(voucher.using_id)) ? 'DJQ' : '',
+      ticketId: voucher.using_id,
+    };
+    // console.log(post_data);
+    $.ajax(
+    {
+      url: urls.orderUpdate,
+      type: 'POST',
+      data: post_data,
+      dataType: 'JSON',
+      success: function(res)
+      {
+        if (res.code == '200')
+        {
+          // console.log(res);
+          if (parseFloat(res.result.finalFee) <= 0)
+          {
+            alert("支付成功！");
+            return false;
+          }
+          //跳转
+          var gotoUrl = u + "/api/pay/button?bill_no=" + mycourse.orderId + "&title=" + mycourse.title + "&from=h5";
+          // console.log(gotoUrl);
+          location.href = gotoUrl;
+        }
+        else
+        {
+          alert(res.msg);
+        }
+      },
+    });
+  });
+  //
+  //
+  // ------------------------------------库函数------------------------------------------
+  // 获取后台传来的课程信息
+  function getCourseInfo()
+  {
+    var ts = Math.round(new Date().getTime() / 1000);
+    var post_data = {
+      from: 'h5',
+      platform: 2,
+      timestamp: ts,
+      sign: getSign(ts),
+      userid: cur_user.userId,
+      username: cur_user.userName,
+      token: cur_user.token,
+      productType: 1,
+      productId: mycourse.courseId,
+    };
+    $.ajax(
+    {
+      url: urls.orderCreate,
+      type: 'POST',
+      data: post_data,
+      dataType: 'JSON',
+      success: function(res)
+      {
+        // console.log(res);
+        if (res.code == 200)
+        {
+          // 显示至前端：
+          showCourseInfo(res.result);
+          $('#userCouponsList li:first-child').addClass("checked");
+          $('.mask').hide();
+        }
+        else
+        {
+          alert(res.msg);
+        }
+      },
+    });
+  }
+  // 展示课程数据
+  function showCourseInfo(obj)
+  {
+    mycourse.title = obj.productName;
+    mycourse.orderId = obj.orderId;
+    mycourse.price = parseFloat(obj.productPrice).toFixed(2);
+    if (obj.voucherList[0])
+    {
+      voucher.using_name = obj.voucherList[0].name;
+      voucher.using_id = obj.voucherList[0].id;
+      voucher.using_cutoff = parseFloat(obj.voucherList[0].value).toFixed(2);
+      voucher.list = obj.voucherList;
+      displayVouchers();
+      $('#couponsList').removeClass('none');
+    }
+    else
+    {
+      $('#couponsList').addClass('none');
+      voucher.using_name = 'noVoucher';
+      voucher.using_id = '';
+      voucher.using_cutoff = (0).toFixed(2);
+    }
+    $('#mycourse_title').html(mycourse.title);
+    $('#mycourse_orderId').html(mycourse.orderId);
+    $('#mycourse_price').html(mycourse.price);
+    // 更新代金券使用情况
+    $('#cutoff_price').html(voucher.using_cutoff);
+    var temp = mycourse.price - voucher.using_cutoff;
+    $('#final_price').html(temp < 0 ? (0).toFixed(2) : temp.toFixed(2));
+    $('#voucher_name').html(voucher.using_name);
+  }
+  // 展示代金券
+  function displayVouchers()
+  {
+    if (!voucher.list || voucher.list.length == 0)
+    {
+      return false;
+    }
+    // 展示代金券
+    $('#userCouponsList').html('');
+    for (var i = 0; i < voucher.list.length; i++)
+    {
+      var c = voucher.list[i];
+      $('#userCouponsList').append('<li class="coupon" data-id="' + c.id + '" data-value="' + c.value + '">\
+        <i class="rightCheck"></i>\
+        <div class="content">\
+          <div class="fr">\
+            <p class="money">￥<span>' + c.value + '</span></p>\
+            <p class="small ta-r">满' + c.minValue + '元可用</p>\
+          </div>\
+          <p class="title">' + c.name + '</p>\
+          <p class="pb10 small">有效期至<span>' + c.inValidTime.slice(0, 10) + '</span></p>\
+          <p class="small">适用课程</span>\
+          </p>\
+          <p class="grey pb15 small">' + c.scopeDesc + '</p>\
+          <p class="detail grey small">' + c.description + '</p>\
+        </div>\
+      </li>');
+    }
+    // 选择代金券
+    $('.coupon').on('click', function()
+    {
+      var _this = $(this);
+      // console.log(_this);
+      $('.coupon').removeClass("checked");
+      _this.addClass("checked");
+      voucher.using_id = _this.attr("data-id");
+      voucher.using_name = _this.find('.title').text();
+      voucher.using_cutoff = _this.attr("data-value");
+      // 更新代金券使用情况
+      $('#cutoff_price').html(voucher.using_cutoff);
+      var temp = mycourse.price - voucher.using_cutoff;
+      $('#final_price').html(temp < 0 ? (0).toFixed(2) : temp.toFixed(2));
+      var index = $('.coupon').index(_this);
+      if (index == 0)
+      {
+        $('#couponsList').addClass('none');
+      }
+      else
+      {
+        $('#couponsList').find('#voucher_name').text(voucher.using_name).parent().removeClass('none');
+      }
+      // console.log(voucher);
+      $('#mainPage').show();
+      $('#couponPage').hide();
+    });
+  }
+  // 用户登录成功后显示数据
+  function showUserInfo(obj)
+  {
+    // 置入相关数据
+    cur_user.userId = obj.userId;
+    cur_user.nickName = obj.nickName;
+    cur_user.userName = obj.userName;
+    cur_user.token = obj.token;
+    // console.log(cur_user);
+    // 本地保存登录状态：
+    // sessionStorage.winlessonh5_cur_user = JSON.stringify(cur_user);
+    // console.log(sessionStorage.winlessonh5_cur_user);
+    // 显示至前端
+    $('#nickName').html(obj.nickName);
+    $('#userName').html(obj.userName);
+    $('#userInfo').show();
+  }
+  // 获取URL参数
+  function getQueryString(name)
+  {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+  }
+  // 前端账户密码验证：
+  function illegalUser()
+  {
+    var dataReady = true;
+    // 验证手机
+    var reg = new RegExp('^1([0-9]{10})$');
+    if ($('#userphone').val() && !$('#userphone').val().match(reg))
+    {
+      // if (!$('#userphone').val() || !$('#userphone').val().match(reg)) {
+      $('#userphone').parent().addClass('alert');
+      dataReady = false;
+    }
+    else
+    {
+      $('#userphone').parent().removeClass('alert');
+    }
+    // 验证密码
+    if ($('#userpassword').val() == '')
+    {
+      $('#userpassword').parent().addClass('alert');
+      dataReady = false;
+    }
+    else
+    {
+      $('#userpassword').parent().removeClass('alert');
+    }
+    return dataReady;
+  }
+  // 获取签名：
+  function getSign(timestamp)
+  {
+    return hex_md5((timestamp).toString() + "You_will-never+konw=it&Itusedtovalidrequest").toUpperCase();
+  }
+
+</script>
+
+</html>
+

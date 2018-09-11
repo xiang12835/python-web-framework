@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<title>商家网页</title>
+<head>
+<form class="editPart" {% if code %}action="/api/pay/jsapi" method="post"{% end %}>
+    <fieldset>
+        <legend>商家网页</legend>
+        <p><label>商品金额1分钱测试</label></p>
+
+        <input type="text" name="fee" value="1" placeholder="请输入支付金额(元)">
+        <input type="hidden" name="code" value="{{code}}">
+        <input type="submit" class="commentSubmit" value="点击购买" />
+    </fieldset>
+</form>
+
+</head>
+</body>
+</html>

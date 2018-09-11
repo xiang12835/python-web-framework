@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <title>必胜课抽奖轮盘</title>
+  <!--<link rel="stylesheet" href="/css/style.css">-->
+  <script type="text/javascript" src="http://i.winlesson.com/js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="http://i.winlesson.com/js/jQueryRotate.2.2.js"></script>
+  <script type="text/javascript" src="http://i.winlesson.com/js/jquery.easing.min.js"></script>
+  <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        text-align: center;
+        background-color: #f97b16;
+        font-family: "Microsoft YaHei";
+        font-size: 1rem;
+      }
+
+      img {
+        width: 100%;
+      }
+
+      a {
+        text-decoration:none;
+        color: #fff;
+        -webkit-appearance: none;
+      }
+
+      .red {
+        color: #ff0000;
+      }
+      /* 转轮 */
+      .plate {
+        max-width: 480px;
+        margin: auto;
+        position:relative;
+      }
+      #bg {
+        min-height: 456px;
+      }
+      .ly-plate {
+        width: 320px;
+        height: 320px;
+        margin: auto;
+        position: absolute;
+        top:62.8289%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+      }
+
+      .ly-plate .rotate-bg {
+        width: 100%;
+        height: 100%;
+        background: url(http://i.winlesson.com/images/ly-plate.png) center/cover;
+        position: absolute;
+        margin: auto;
+      }
+
+      .ly-plate div.lottery-star {
+        width: 42%;
+        height: 42%;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      .ly-plate div.lottery-star img {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      /* 文字 */
+      .rules {
+        width: 80%;
+        margin: 0 auto 20px;
+        background-color: rgba(255, 255, 255, .2);
+        text-align: left;
+        color: #fff;
+        padding: 1rem;
+        position:relative;
+        top:-5px;
+      }
+      b {
+        font-weight: bold;
+      }
+      i {
+        font-style: normal;
+        margin-left: 1em;
+      }
+      /* 蒙层 */
+      .mask,.layer {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 500;
+        display: none;
+      }
+
+      .mask {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .layer .container {
+        width: 70%;
+        background-color: #fff;
+        padding: 1em 1em 4.16em;
+        margin: 50% auto 0;
+        left: 0; right: 0;
+        border-radius: 5px;
+        z-index: 999;
+        position: relative;
+        text-align: center;
+      }
+
+      .layer .container .title {
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .layer .container .title small {
+        display: block;
+        font-size: 16px;
+      }
+
+      .layer .container .award {
+        margin-top: .75em;
+        font-size: 12px;
+        text-align: left;
+      }
+
+      .layer .container .detail {
+        margin-top: 1.5em;
+        font-size: 12px;
+        color: #8e8e8e;
+        text-align: left;
+      }
+
+      .layer .icon {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+      }
+
+      .layer .btn {
+        height: 2.5em;
+        line-height: 2.5em;
+        width: 50%;
+        background-color: #f97b16;
+        color: #fff;
+        position: absolute;
+        bottom: 0;
+        cursor: pointer;
+      }
+
+      .layer .btnl{
+        left: 0;
+        border-radius: 0 0 0 5px;
+      }
+
+      .layer .btnr{
+        border-left: 1px solid #fff;
+        right: 0;
+        border-radius: 0 0 5px 0;
+      }
+
+      /*WIN*/
+      .layer.win {
+        color: #fb5319;
+      }
+
+      .layer.win .icon {
+        width: 175px;
+        height: 146px;
+        top: -117px;
+        background-image: url(http://i.winlesson.com/images/lihe.png);
+        background-size: 100%;
+      }
+
+      .layer.win .container {
+        padding-top: 29px;
+      }
+
+      /*LOSE*/
+      .layer.lose {
+        color: #727272;
+      }
+
+      .layer.lose .icon {
+        width: 95px;
+        height: 71px;
+        top: 8px;
+        background-image: url(http://i.winlesson.com/images/mifeng.png);
+        background-size: 100%;
+      }
+
+      .layer.lose .container {
+        padding-top: 96px;
+      }
+      a {
+        text-decoration:none
+        out-line: none
+        color: ;
+      }
+  </style>
+</head>
+<body>
+<!-- 转盘 -->
+<div class="plate">
+  <img id="bg" src="http://i.winlesson.com/images/bg.png">
+  <div class="ly-plate">
+    <div class="rotate-bg">
+      <div class="lottery-star">
+        <img src="http://i.winlesson.com/images/rotate-static.png" id="lotteryBtn">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 规则 -->
+<div class="rules">
+  <p><b>活动规则</b></p>
+  <p>一等奖：<span>{{awardList[0]["awardDesc"]}}</span><i>{{awardList[0]["awardNum"]}}</i>名</p>
+  <p>二等奖：<span>{{awardList[1]["awardDesc"]}}</span><i>{{awardList[1]["awardNum"]}}</i>名</p>
+  <p>三等奖：<span>{{awardList[2]["awardDesc"]}}</span><i>{{awardList[2]["awardNum"]}}</i>名</p>
+  <p>再接再厉：<span>看免费课程</span><i>所有</i></p>
+  <p>预计活动日期：{{startTime}}—{{endTime}}</p>
+  <input type="hidden" id="activity_id" value="{{activityId}}">
+</div>
+<!-- 蒙版 -->
+<div class="mask"></div>
+<!-- 对话框 -->
+<div class="layer">
+  <div class="container">
+    <div class="icon"></div>
+    <h3 class="title"></h3>
+    <p class="award"></p>
+    <p class="detail"></p>
+    <div class="btn btnl"></div>
+    <div class="btn btnr"></div>
+  </div>
+</div>
+</body>
+<script>
+
+// 奖项设置：
+// award:奖项[1|2|3|0], angle:开始角度, awardText:奖项说明, detailText:细节描述)
+var option=[
+  {
+    award: 0,
+    angle: [45, 90, 180, 270, 315],
+    awardText: '',
+    detailText: '没有中奖的小伙伴也不要气馁哦，还有海量公考精品课程免费听！'
+  },
+  {
+    award: 1,
+    angle: 135,
+    awardText: '获得{{awardList[0]["awardDesc"]}}',
+  },
+  {
+    award: 2,
+    angle: 225,
+    awardText: '获得{{awardList[1]["awardDesc"]}}',
+  },
+  {
+    award: 3,
+    angle: 0,
+    awardText: '获得{{awardList[2]["awardDesc"]}}',
+  }
+];
+
+$(function() {
+  // 初始化：定位
+  //platePosition();
+  // 抽奖行为：
+  $("#lotteryBtn").on("click",function(){
+    // 获取获奖信息：
+    console.log("activity_id:"+$("#activity_id").val());
+    $.ajax({
+      url: '/api/activity/award/start',
+      type: 'post',
+      dataType: 'json',
+      data: {activityId: $("#activity_id").val()},
+      success: function(data){
+        if(data["code"] == "302"){
+          alert(data['msg']);
+          window.location.href=data['result']['url'];
+          return;
+        }
+        if (data["code"]!="200"){
+          alert(data["msg"]);
+        } else {
+          num = parseInt(data["result"]["awardResult"]);
+          console.log("num:"+num);
+          showResult(num);
+        }
+      },
+    });
+  });
+  // 蒙层行为：
+  $(".layer").on("click",function(){
+    $(".mask").hide();
+    $(".layer").removeClass("win").removeClass("lose").hide();
+  });
+  $(".layer .container").on("click",function(){
+    stopBubble();
+  })
+});
+/*$(window).on("resize", function() {
+  platePosition();
+})*/
+
+// -----------------库函数----------------------//
+// 获奖说明：
+function showResult(num) {
+  var obj=option[num];
+  var angle=0;
+  if(typeof(obj.angle)=="object") {
+    var angleArr = obj.angle;
+    angle = angleArr[Math.floor(Math.random() * angleArr.length)];
+  }else {
+    angle=obj.angle;
+  }
+  rotateFunc(obj.award, angle, obj.awardText, obj.detailText);
+}
+
+// 旋转
+function rotateFunc(award, angle, awardText, detailText) {
+  console.log(award+";"+angle+";"+awardText+";"+detailText);
+  $('#lotteryBtn').stopRotate();
+  $("#lotteryBtn").rotate({
+    angle: 0,
+    duration: 5000,
+    animateTo: angle + (Math.random() * 43) + 2160,
+    callback: function() {
+      displayLayer(award, awardText, detailText);
+      console.log(award);
+    }
+  });
+};
+
+// 转盘定位：
+//function platePosition() {
+   //$(".plate .bg").load(function(){
+     //$(".ly-plate").css("top", $(".bg").height() * .628289);
+   //})
+  // console.log($(".ly-plate").offset().top);
+//}
+
+// 显示蒙层：
+function displayLayer(prize, awardText, detailText) {
+  // type:win|lose;
+  // titleText:一等奖 二等奖 (for win)
+  // awardText:红色奖品说明
+  // detailText:灰色提示
+  var awardText=awardText?awardText:"",
+      detailText=detailText?detailText:"您的奖品已经发放，邮寄类礼品需往必胜课官网完善个人信息！",
+      win = "";
+  switch (prize) {
+    case 1:
+      prize = "一";
+      win = true;
+      break;
+    case 2:
+      prize = "二";
+      win = true;
+      break;
+    case 3:
+      prize = "三";
+      win = true;
+      break;
+    default:
+      win = false;
+      break;
+  }
+
+  var layer = $(".layer"),
+    title = layer.find(".title"),
+    awardE = layer.find(".award"),
+    detail = layer.find(".detail"),
+    btnl = layer.find(".btnl"),
+    btnr = layer.find(".btnr");
+
+  if (win) {
+    layer.addClass("win");
+    title.html("恭喜你<small>抽中" + prize + "等奖</small>");
+    awardE.html(awardText).show();
+    detail.html(detailText);
+    btnl.html("<a href='http://a.app.qq.com/o/simple.jsp?pkgname=com.winlesson.app'>下载APP</a>");
+    btnr.html("<a href='http://www.winlesson.com'>前往官网</a>");
+  } else {
+    layer.addClass("lose");
+    title.html("谢谢参与");
+    awardE.hide();
+    detail.html(detailText);
+    btnl.html("<a href='http://a.app.qq.com/o/simple.jsp?pkgname=com.winlesson.app'>下载APP</a>");
+    btnr.html("<a href='http://www.winlesson.com'>前往官网</a>");
+  }
+
+  $(".mask").show();
+  $(".layer").show();
+}
+
+function stopBubble(e) {
+//如果提供了事件对象，则这是一个非IE浏览器
+if(e && e.stopPropagation) {
+　　//因此它支持W3C的stopPropagation()方法
+　　e.stopPropagation();
+} else {
+　　//否则，我们需要使用IE的方式来取消事件冒泡
+　　window.event.cancelBubble = true;
+}
+return false;
+}
+
+
+</script>
+</html>

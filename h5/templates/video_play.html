@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>必胜公考</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html,body {
+      height: 100%;
+    }
+    video {
+      width: 100%;
+      position: absolute;
+      top: 0; bottom:0; left:0; right:0;
+      margin:auto;
+      min-height: 240px;
+      background-image: url(http://static-10004299.file.myqcloud.com/images/video_background.png);
+    }
+    h3 {
+      padding: 20px 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <h3 style="text-align: center;">{{videoName}}</h3>
+  <video autoplay src="{{videoUrl}}">您的浏览器不支持H5标准，请使用其他浏览器</video>
+</body>
+</html>

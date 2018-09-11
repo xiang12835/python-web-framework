@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <title>必胜公考-课程分享</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  a,a:link,a:visited,a:hover,a:active {
+    color:inherit;
+    text-decoration: none;
+  }
+
+  body {
+    max-width: 1024px;
+    margin: auto;
+    font-family: PingFangSC-Regular;
+    padding-bottom:60px;
+  }
+
+  #headimg {
+    width: 100%;
+    display: block;
+    margin-bottom: 15px;
+    min-height: 180px;
+  }
+
+  .content {
+    padding: 15px 15px 25px;
+  }
+
+  h1 {
+    margin-bottom: 10px;
+    line-height: 22px;
+    font-family: PingFangSC-Medium;
+    font-size: 16px;
+    color: #333333;
+    letter-spacing: 0.57px;
+  }
+
+  .content p {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #666666;
+    letter-spacing: 0.77px;
+    line-height: 22px;
+    margin-bottom: 5px;
+  }
+
+  .content .source {
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #333333;
+    letter-spacing: 0;
+    margin-bottom: 15px;
+  }
+
+  .content .source b {
+    color: #999999;
+  }
+
+  .t-list {
+    letter-spacing: -0.5em;
+  }
+
+  .t-list .t-item {
+    display: inline-block;
+    width: 50px;
+  }
+
+  .t-list .t-item+.t-item {
+    margin-left: 10px;
+  }
+
+  .t-list .t-item .t-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 5px;
+  }
+
+  .t-list .t-item .t-name {
+    width: 50px;
+    text-align: center;
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #666666;
+    letter-spacing: 0;
+  }
+  /*二维码*/
+
+  .v-code {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, .5);
+    color: #fff;
+  }
+
+  .v-code img {
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin: 10px 5px 10px 15px;
+  }
+
+  .v-code .quit {
+    float: right;
+    width: 20px;
+    height: 20px;
+    margin: 20px 11px;
+  }
+
+  .v-code p {
+    font-size: 12px;
+    line-height: 17px;
+    float: left;
+    margin-top: 11px;
+    margin-bottom: 12px;
+  }
+
+  .v-code p b {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    font-family: PingFangSC-Medium;
+    letter-spacing: 0;
+  }
+
+  .v-code .btn {
+    width: 80px;
+    height: 30px;
+    margin: 15px 0;
+    border-radius: 4px;
+    background: #ffc863;
+    font-family: PingFangSC-Semibold;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-shadow: 1px 1px 0 #FF9E4D;
+    float: right;
+  }
+  </style>
+</head>
+
+<body> <img id="headimg" src="{{courseInfo.courseCover}}">
+  <div class="content">
+    <h1>{{courseInfo.courseName}}</h1>
+    <p>{% raw courseInfo.courseDescript %}</p>
+    {% if teacherInfoList %}
+    <div class="t-list">
+      {% for teacher in teacherInfoList %}
+      <div class="t-item">
+        <div class="t-img" style="background-color: blue"><img width="50" height="50" src="{{teacher.teacherPic}}" /></div>
+        <p class="t-name">{{teacher.teacherName}}</p>
+      </div>
+      {% end %}
+    </div>
+    {% end %}
+  </div>
+  <!-- 长图留位 -->
+  <div>
+    <img src="{{courseInfo.introPic}}">
+  </div>
+  <!-- 二维码 -->
+  <section id="v-code" class="v-code cf">
+    <a href="http://a.app.qq.com/o/simple.jsp?pkgname=gwy.winlesson.app"> <img src="/images/img/applogo1024@2x.png">
+      <p> <b>下载必胜公考APP</b>
+        <br/> 第一时间掌握最新资讯 </p> <img id="quit" class="quit" src="/images/img/white@1x.png">
+      <div class="btn">立即下载</div>
+    </a>
+  </section>
+</body>
+<script>
+document.getElementById('quit').onclick = function()
+{
+  document.getElementById('v-code').style.display = "none";
+  return false;
+}
+</script>
+
+</html>

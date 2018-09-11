@@ -1,0 +1,103 @@
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	html,
+	body {
+		width: 100%;
+		height: 100%;
+		font-family: -apple-system, BlinkMacSystemFont, PingFang SC, Helvetica, Tahoma, Arial, Hiragino Sans GB, Microsoft YaHei, SimSun, Heiti, sans-serif !important;
+	}
+	
+	@media screen and (min-width: 769px) {
+		html,
+		body {
+			width: 460px !important;
+			margin: 0 auto;
+		}
+		body {
+			/*box-shadow: 0 0 30px gray;*/
+			background-color: #FFF !important;
+		}
+	}
+	
+	a {
+		position: relative;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	
+	.mui-row.mui-fullscreen>[class*="mui-col-"] {
+		height: 100%;
+	}
+	
+	.mui-col-xs-3,
+	.mui-control-content {
+		overflow-y: auto;
+		height: 100%;
+	}
+	
+	.mui-segmented-control .mui-control-item {
+		line-height: 50px;
+		width: 100%;
+	}
+	
+	.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+		background-color: #fff;
+	}
+	
+	.fright {
+		float: right;
+	}
+	
+	.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+		color: #fcb200;
+		border-bottom: 2px solid #007aff;
+		background: 0 0;
+	}
+	
+	.mui-table-view-cell {
+		color: #666;
+	}
+	
+	.liactive {
+		color: #fcb200;
+	}
+	
+	.limin {
+		font-family: -apple-system, BlinkMacSystemFont, PingFang SC, Helvetica, Tahoma, Arial, Hiragino Sans GB, Microsoft YaHei, SimSun, Heiti, sans-serif !important;
+		font-size: 14px;
+	}
+	
+	.mui-segmented-control {
+		color: #666 !important;
+	}
+	
+	.pt5 {
+		padding-top: 5px;
+		border-bottom: 1px solid #c8c7cc;
+	}
+	
+	.btnst {
+		margin-bottom: 5px;
+		margin-right: 5px;
+	}
+	/*.mui-segmented-control a{
+				font-size: 16px;
+			}*/
+	
+	.back {
+		margin-right: 10px;
+		margin-top: 6px;
+		margin-left: 10px;
+		color: #fcb200;
+	}
+	
+	.navheader {
+		display: block;
+		height: 45px;
+		border-bottom: 1px solid #c8c7cc;
+		padding-top: 5px;
+	}
