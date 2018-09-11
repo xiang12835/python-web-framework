@@ -4,9 +4,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'django_py2.content.home.hello_django', name=u'home'),
+    url(r'^$', 'py2_django.content.home.hello_django', name=u'home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^content/', include('django_py2.content.urls')),
+    url(r'^content/', include('py2_django.content.urls')),
 
 )

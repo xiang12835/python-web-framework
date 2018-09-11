@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-from django_py2.content.views import hello, hello1, mybook, view, views, view1, view2
+from py2_django.content.views import hello, hello1, mybook, view, views, view1, view2
 
 urlpatterns = patterns(
     '',
