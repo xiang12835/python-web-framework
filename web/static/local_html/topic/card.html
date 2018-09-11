@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>话题活动h5卡片入口</title>
+  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <style type="text/css">
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-family: PingFangSC-Regular, Microsoft YaHei;
+    font-size: 14px;
+    color: #333;
+  }
+
+  i {
+    font-style: normal;
+    display: inline-block;
+  }
+  i.topic {
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+    background: url("img/topic@2x.png") no-repeat center/100%;
+  }
+
+  #main {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #main .imgframe {
+    width: 100%;
+    display: block;
+    height: 108px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .imgframe img {
+    width: 100%;
+    height: auto;
+  }
+
+  .imgframe .floater {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 64px;
+    height: 48px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    background-image: url("img/person@2x.png");
+    font-size: 18px;
+    color: #FFBC42;
+    text-align: center;
+    font-family: PingFangSC-Medium, Microsoft YaHei;
+    font-weight: bold;
+  }
+
+  #main.new .imgframe .floater {
+    background-image: url("img/new@2x.png");
+  }
+
+  #main.new .imgframe .floater>* {
+    display: none;
+  }
+
+  .floater span {
+    display: block;
+    margin-top: 3px;
+  }
+  .type {
+    width: 48px;
+    height: 36px;
+    position: absolute;
+    bottom: 0;
+    left:10px;
+    overflow: hidden;
+    background-size: 100%;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+  }
+
+  header {
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    font-family: PingFangSC-Medium, Microsoft YaHei;
+    color: #333;
+    padding-left: 10px;
+  }
+
+  header>* {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  h4>* {
+    vertical-align: middle;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <header>
+      <h4>
+        <i class="topic"></i>许下你内心深处的愿望 万一实现了呢
+      </h4>
+    </header>
+    <div class="imgframe">
+      <img id="banner" class="banner" src="" alt="活动banner">
+      <div class="floater">
+        <span id="parti_count">10</span>
+      </div>
+      <span id="type" class="type"></span>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  var topic_id=1;
+  var base_url="http://test.api.platform.winlesson.com/";
+  $.ajax({
+  url: base_url+"info/topic/detail"+"?tid="+topic_id,
+  type: "get",
+  success: function(res){
+    if (res.code==200) {
+      var topic_data=res.topic;
+      document.getElementById('parti_count').innerText=topic_data.participant_count;
+      document.getElementById('type').style.backgroundImage="url("+topic_data.icon+")";
+      document.getElementById('banner').src=topic_data.topic_image;
+    }
+  }
+});
+</script>
+</html>

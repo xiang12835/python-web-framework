@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0" />
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <style type="text/css">
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+    font-family: Microsoft YaHei;
+    min-height: 568px;
+  }
+
+  body {
+    background: url("image/bg.jpg") no-repeat center/cover;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    margin: auto;
+  }
+
+  .btn {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 40px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, .2);
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+  }
+
+  @-webkit-keyframes wobble {
+    from {
+      -webkit-transform: none;
+      transform: none;
+    }
+    15% {
+      -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+      transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+    }
+    30% {
+      -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+      transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+    }
+    45% {
+      -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+      transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+    }
+    60% {
+      -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+      transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+    }
+    75% {
+      -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+      transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+    }
+    to {
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+
+  @keyframes wobble {
+    from {
+      -webkit-transform: none;
+      transform: none;
+    }
+    15% {
+      -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+      transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+    }
+    30% {
+      -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+      transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+    }
+    45% {
+      -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+      transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+    }
+    60% {
+      -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+      transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+    }
+    75% {
+      -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+      transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+    }
+    to {
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+  /*抽奖页面样式*/
+
+  body>div {
+    display: none;
+  }
+
+  #content {
+    height: 100%;
+    background: url("image/index_main.png") no-repeat center/100%;
+    position: relative;
+    display: block;
+  }
+
+  form {
+    display: block;
+    width: 240px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 15%;
+  }
+
+  form>* {
+    display: block;
+    text-align: center;
+  }
+
+  form>*+* {
+    margin-top: 12px;
+  }
+
+  #username {
+    font-size: 20px;
+    text-align: center;
+    background: #fff;
+    border: 2px solid #7a7571;
+    -webkit-appearance: none;
+  }
+
+  #username:focus,
+  #username.user {
+    background-image: none;
+  }
+
+  #lots {
+    background: linear-gradient(#fff229, #fe9b41);
+    color: #811515;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  /*摇签页*/
+
+  #shake img {
+    width: 50%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    -webkit-animation-name: wobble;
+    animation-name: wobble;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  /*结果页*/
+
+  #result .btn {
+    width: 240px;
+    display: block;
+    margin: auto;
+    background: linear-gradient(#fff229, #fe9b41);
+  }
+
+  #re-content {
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
+
+  #result {
+    padding-top: 100px;
+  }
+
+  #result img {
+    width: 195px;
+  }
+  </style>
+</head>
+
+<body>
+  <!-- 摇奖页面 -->
+  <div id="content">
+    <form>
+      <input type="text" id="username" name="username" class="btn" placeholder="高姓大名">
+      <button type="button" id="lots" class="btn">摇一摇</button>
+    </form>
+    <div id="status"></div>
+  </div>
+  <div id="shake">
+    <img src="image/shake.png" class="wobble">
+  </div>
+  <!-- 遮罩 -->
+  <div id="mask">
+  </div>
+  <!-- 结果页面 -->
+  <div id="result">
+    <img id="re-content">
+    <button id="share" class="btn">重新测试</button>
+  </div>
+</body>
+<script type="text/javascript">
+// 摇奖页面：
+// username的样式问题：
+$('#username').on('blur', function() {
+  var _this = $(this);
+  if (_this.val() && _this.val().replace(/ /g, '')) {
+    _this.addClass('user');
+  }
+});
+$('#share').on('click', function() {
+  window.location.href = window.location.href;
+})
+// 结果页样式：
+$("#result .content").height($("#result .content").width() * 0.825);
+// 摇奖代码：
+function rolling() {
+  var username = $('#username').val().replace(/ /g, '');
+  if (!!username) {
+    shaked = true;
+    success(username);
+  } else {
+    alert("你还没有输入姓名！");
+  }
+}
+
+function displayResult() {
+  // $('#mask').hide();
+  $('#shake').hide();
+  // if (localStorage && localStorage.getItem('previous')){
+  //   $("#re-content")[0].src = 'result/jieguo' + localStorage.getItem('previous') + '.png';
+  // }else{
+  //   var temp=Math.ceil(Math.random() * 31);
+  //   $("#re-content")[0].src = 'result/jieguo' + temp + '.png';
+  //   if(localStorage){
+  //     localStorage.setItem('previous',temp);
+  //   }
+  // }
+  $("#re-content")[0].src = 'result/jieguo' + Math.ceil(Math.random() * 31) + '.png';
+  $('#result').show();
+}
+
+function success(username) {
+  $('#content').hide();
+  $('#shake').show();
+  setTimeout(function() {
+    // $("#mask").show();
+    displayResult();
+  }, 1300);
+}
+// 摇一摇代码：
+var shake = 4000,
+  shaked = false,
+  last_update = 0,
+  x = y = z = last_x = last_y = last_z = 0;
+if (window.DeviceMotionEvent) {
+  window.addEventListener("devicemotion", deviceMotionHandler, false);
+} else {
+  console.log("本设备不支持devicemotion事件");
+}
+// 摇一摇代码：
+function deviceMotionHandler(eventData) {
+  var acceleration = eventData.accelerationIncludingGravity,
+    currTime = new Date().valueOf(),
+    diffTime = currTime - last_update;
+  if (diffTime > 100) {
+    last_update = currTime;
+    x = acceleration.x;
+    y = acceleration.y;
+    z = acceleration.z;
+    var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000
+    var status = document.getElementById("status");
+    if (speed > shake && !shaked) {
+      rolling();
+    }
+    last_x = x;
+    last_y = y;
+    last_z = z;
+  }
+}
+// 按钮行为：
+$("#lots").on("click", function() {
+  rolling();
+});
+</script>
+
+</html>
