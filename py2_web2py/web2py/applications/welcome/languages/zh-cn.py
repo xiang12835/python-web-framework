@@ -197,6 +197,7 @@
 'Preface': 'Preface',
 'previous %s rows': 'previous %s rows',
 'previous 100 rows': '往前 100 笔',
+'Profile': 'Profile',
 'pygraphviz library not found': 'pygraphviz library not found',
 'Python': 'Python',
 'Query:': '查询:',
