@@ -1,70 +1,51 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# -*-coding: utf-8-*-
 
-import os, sys
+import os
+import sys
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, '..', 'base', "site-packages"))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, os.pardir))
+sys.path.insert(0, os.path.join(PROJECT_ROOT, os.pardir, os.pardir))
 
 
 from base.settings import load_django_settings
 from settings import load_tonardo_settings
 
-load_django_settings('python-web-framework.base', 'python-web-framework.django_py2', 'python-web-framework.tornado_py2')
+load_django_settings('python-web-framework.base')
 
-import tornado.httpserver
-import tornado.ioloop
+
+from tornado import httpserver, ioloop, web
+from tornado.options import define, options
+import torndb
 import tornado.options
-import tornado.web
-import logging
-import settings
-from tornado_py2.document.doc_tools import load_api_doc
+from handlers import HANDLERS, TEMPLATE_PATH
+
+define("port", default=9000, help="run on the given port", type=int)
+define("mysql_host", default="127.0.0.1:3306", help="blog database host")
+define("mysql_database", default="tornado_db", help="blog database name")
+define("mysql_user", default="root", help="blog database user")
+define("mysql_password", default="", help="blog database password")
 
 
-def init_options():
-    tornado.options.define('port', default=11000, type=int)
-    tornado.options.define('worker', default=2, type=int)
-    tornado.options.define('debug', default=False, type=bool)
-    tornado.options.define('doc', default=True, type=bool)
-    tornado.options.define('timeout', default=2, type=int)
+class Application(web.Application):
+    def __init__(self):
+        handlers = HANDLERS
+        settings = dict(
+            template_path=TEMPLATE_PATH,
+            xsrf_cookies=False,
+            cookie_secret="11oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
+        )
+
+        web.Application.__init__(self, handlers, **settings)
+
+        self.db = torndb.Connection(
+            host=options.mysql_host, database=options.mysql_database,
+            user=options.mysql_user, password=options.mysql_password)
+
+
+if __name__ == '__main__':
     tornado.options.parse_command_line()
-
-    return tornado.options.options
-
-
-def main():
-    _options = init_options()
-
-    # 设置全局socket超时时间
-    import socket
-
-    socket.setdefaulttimeout(_options.timeout)
-    settings.is_debug = _options.debug
-    settings.is_doc = _options.doc
-
-    # FIXME: 找不到templates目录
-    apiurls, app_settings = load_api_doc(PROJECT_ROOT, _options.doc)
-    url_list = apiurls
-    load_tonardo_settings(app_settings)
-
-    
-    application = tornado.web.Application(url_list, debug=_options.debug, **app_settings)
-
-    _httpserver = tornado.httpserver.HTTPServer(application, no_keep_alive=True)
-    _httpserver.bind(_options.port)
-
-
-    _httpserver.start(1 if _options.debug else _options.worker)
-    logging.info("httpserver thread {} worker,domain http://{}:{},debug={},logging={}".format(str(_options.worker),
-                                                                                              str(socket.gethostname()),
-                                                                                              str(_options.port),
-                                                                                              str(_options.debug),
-                                                                                              str(_options.logging)))
-    logging.info(
-        "http://" + str(socket.gethostname()) + ":" + str(_options.port) + '/urls?pid=127f7a5e3a366bd0&kind=1' + " ")
-    tornado.ioloop.IOLoop.instance().start()
-
-
-if __name__ == "__main__":
-    main()
+    http_server = httpserver.HTTPServer(Application())
+    http_server.listen(options.port)
+    ioloop.IOLoop.instance().start()

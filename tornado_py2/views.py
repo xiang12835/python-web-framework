@@ -2,6 +2,7 @@
 
 import tornado.web
 
+
 class BaseHandler(tornado.web.RequestHandler):
     @property
     def db(self):
@@ -13,14 +14,17 @@ class BaseHandler(tornado.web.RequestHandler):
     def get_all(self):
         return self.db.query("select * from authors")
 
+
 class IndexHandler(BaseHandler):
     def get(self):
         greeting = self.get_argument('greeting', 'Hello')
         self.write(greeting + ' tornado!')
 
+
 class LoginHandler(BaseHandler):
     def get(self):
         self.render('index.html')
+
 
 class PoemPageHandler(BaseHandler):
     def post(self):
@@ -32,6 +36,7 @@ class PoemPageHandler(BaseHandler):
         ret = self.db.get('SELECT * from authors WHERE email = %s', email)
         self.render('poem.html', roads=name, wood=email, made=verb,
                 difference=noun3, id=ret["id"])
+
 
 class ShowHandler(BaseHandler):
     def get(self):
