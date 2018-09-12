@@ -1,5 +1,5 @@
 # coding=utf-8
-from h5.view.base import BaseHandler, CachedPlusHandler
+from h5.views.base import BaseHandler, CachedPlusHandler
 from h5.document.doc_tools import *
 from django.conf import settings
 from app.bskgk.models import CourseInfo, InfoCarousel, VideoInfo
