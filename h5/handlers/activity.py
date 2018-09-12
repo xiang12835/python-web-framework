@@ -2,13 +2,9 @@
 from h5.views.base import BaseHandler, CachedPlusHandler
 from h5.document.doc_tools import *
 from django.conf import settings
-from app.bskgk.models import CourseInfo, InfoCarousel, VideoInfo
-from marketing.saler.models import *
-from app.bskcommon.models import BskUser
 import time
 import datetime
 from wi_model_util.imodel import attach_foreignkey, queryset_to_dict
-from app.infomation.models import *
 import tornado
 
 

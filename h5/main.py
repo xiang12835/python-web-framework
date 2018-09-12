@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, '..'))
 from base.settings import load_django_settings
 from settings import load_tonardo_settings
 
-load_django_settings('one_platform.base', 'one_platform.app','one_platform.marketing', 'one_platform.h5')
+load_django_settings('python-web-framework.base', 'python-web-framework.app', 'python-web-framework.h5')
 
 import tornado.httpserver
 import tornado.ioloop

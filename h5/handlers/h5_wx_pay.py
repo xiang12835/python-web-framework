@@ -2,17 +2,9 @@
 from h5.views.base import BaseHandler , CachedPlusHandler
 from h5.document.doc_tools import *
 from django.conf import settings
-from app.bskgk.models import CourseInfo , InfoCarousel , VideoInfo ,WxGzhResult , OrderInfo , OrderDetailInfo
-from app.bskcommon.models import BskUser
 import time, datetime
 from wi_model_util.imodel import attach_foreignkey , queryset_to_dict
-from app.infomation.models import *
-from app.bskgk.libs.primary_key import get_primary_key
 import tornado
-from api.util.paylib.wepayapi import WeXinNativeLink
-from app.index.lib.qr_code_generator import mk_qr
-from api.handler.thridpard.weixin import WexinAPI
-from api.util.paylib.gzh_payapi import GZHPayDoPay
 from xml.etree.ElementTree import XML
 import logging
 
