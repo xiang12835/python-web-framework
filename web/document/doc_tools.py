@@ -3,7 +3,7 @@ import re
 from functools import wraps
 from web.document.doc_globe import api_manager
 from web.document.doc_base import *
-from web.view.base import CachedHandler,CachedPlusHandler
+from web.views.base import CachedHandler,CachedPlusHandler
 import importlib
 
 def api_define(name, uri, params=[], result=None, filters=[], description='', add_user=False, api_type=1, wiki='', protocal="http",return_desc=""):

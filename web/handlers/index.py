@@ -1,6 +1,6 @@
 #coding=utf-8
 
-from web.view.base import BaseHandler , CachedPlusHandler
+from web.views.base import BaseHandler , CachedPlusHandler
 from web.document.doc_tools import *
 from django.conf import settings
 import time, datetime
