@@ -65,5 +65,3 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
-/base/my_settings.py
-/django_py2/my_settings.py
