@@ -1,5 +1,7 @@
 """
 Main module of the server file
+
+https://realpython.com/flask-connexion-rest-api/
 """
 
 # 3rd party moudles
